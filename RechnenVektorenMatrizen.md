@@ -198,7 +198,8 @@ Funktion | Beschreibung
 
 
 ## Rechnen mit Matrizen
-	
+
+$X^2$
 
 Funktion | Beschreibung
 ----------|--------------
