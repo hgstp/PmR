@@ -3,3 +3,7 @@
         "readme": "Einfuehrung.md"
     }
 }
+
+{
+    "plugins": ["mathjax"]
+}
