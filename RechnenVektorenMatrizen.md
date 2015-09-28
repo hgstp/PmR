@@ -206,9 +206,9 @@ Funktion | Beschreibung
 `t()` | Transponierte Matrix  
 `det()` | Determinante  
 `solve()` | Matrixinverse  
-`solve(A,b)` | Löst das Gleichungssystem $Ax=b$
-`crossprod(X,Y)` | $X^\top Y$ 
-`tcrossprod(X,Y)` | $X Y^\top$ 
+`solve(A,b)` | Löst das Gleichungssystem $$Ax=b$$
+`crossprod(X,Y)` | $$X^\top Y$$ 
+`tcrossprod(X,Y)` | $$X Y^\top$$ 
 `qr()` | QR-Zerlegung 
 `eigen()` | Eigenwerte und -vektoren
 `%*%` | Matrixmultiplikation
