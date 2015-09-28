@@ -1,7 +1,5 @@
 {
-    "plugins": [
-        "mathjax"
-    ],
+    "plugins": ["mathjax"],
     "structure": {
         "readme": "Einfuehrung.md"
     }
