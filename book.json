@@ -2,8 +2,6 @@
     "structure": {
         "readme": "Einfuehrung.md"
     }
-}
-
-{
     "plugins": ["mathjax"]
 }
+
