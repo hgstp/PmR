@@ -199,7 +199,9 @@ Funktion | Beschreibung
 
 ## Rechnen mit Matrizen
 
+$X^\top Y$
 
+$$X^\top Y$$
 
 Funktion | Beschreibung
 ----------|--------------
