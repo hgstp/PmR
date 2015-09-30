@@ -1,0 +1,261 @@
+---
+title: 'Programmieren mit R: Basis-Grafiksystem'
+author: "Stephan Haug"
+date:   "(Programmierpraktikum MA8505)"
+output: 
+  beamer_presentation:
+    highlight: haddock
+    includes:
+            in_header: Rmarkdown.tex
+---
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(prompt = TRUE, strip.white=TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+
+
+## Grafik
+Wenn eine Grafik erzeugt wird, muss geklärt werden auf welchem **Device** die Ausgabe erfolgen soll. Standardeinstellung ist die Bildschirmgrafik. Die wichtigsten Möglichkeiten sind die folgenden:
+
+
+Funktion | Beschreibung
+---------|-------------
+`jpeg()` | JPEG
+`pdf()` | PDF
+`png()` | PNG
+`postscript()` | PostScript
+`X11()` | Bildschirmgrafik
+
+
+Devices sind wie Papier auf das gemalt wird. Einmal erzeugte
+Elemente lassen sich nicht löschen, sondern nur weiter übermalen. 
+
+
+## Grafik
+
+
+```{r, fig1,fig.height=6}
+x <- seq(0, 8, length = 1000)
+y <- sin(x)
+plot(x, y)
+
+```
+
+
+## Grafik
+
+
+```{r, fig2, fig.height=6}
+plot(x, y, type = "l")
+```
+
+
+## Grafik: High-level Grafikfunktionen
+
+\small
+
+Funktion | Beschreibung
+---------|--------------
+`plot()` | generische Funktion mit vielen Methoden
+`barplot()` | Stabdiagramm
+`boxplot()` | Boxplot
+`contour()` | Höhenlinien-Plot
+`coplot()` | Conditioning-Plot
+`curve()` | Funktionen zeichnen
+`dotchart()` | ''Punkte Plot''
+`hist()` | Histogramm
+`image()` | Bilder (3. Dim. als Farbe)
+`pairs()` | Streudiagramm-Matrix
+`persp()` | perspektivische Flächen
+`qqplot()` | QQ-Plot
+
+
+## Grafik
+
+Laut Tabelle eignet sich `curve()` zum plotten von Funktionen. Daher erzeugen wir die letzte Grafik erneut mit der Funktion `curve()`.
+
+```{r, fig2a, fig.height=6}
+curve(sin(x), from = 0, to = 8)
+```
+
+
+## Grafik
+
+
+
+```{r, echo=-1}
+options(width=55)
+data(iris)
+head(iris)
+```
+
+## Grafik
+
+```{r, eval=FALSE}
+par(mfrow = c(2, 2))
+plot(Petal.Length ~ Petal.Width, data = iris)
+plot(Petal.Length ~ Petal.Width, data = iris,
+     pch = as.numeric(Species), 
+     col = as.numeric(Species))
+hist(iris$Petal.Length)
+boxplot(iris$Sepal.Length ~ iris$Species)
+```
+
+
+
+
+## Grafik
+
+
+```{r, echo=FALSE, fig3}
+par(mfrow = c(2, 2))
+plot(Petal.Length ~ Petal.Width, data = iris)
+plot(Petal.Length ~ Petal.Width, pch = as.numeric(Species), 
+     col = as.numeric(Species), data = iris)
+hist(iris$Petal.Length)
+boxplot(iris$Sepal.Length ~ iris$Species)
+
+```
+
+
+
+
+
+
+
+## Grafik: Konfigurierbarkeit
+
+Globale Grafikeinstellungen können mit `par()` festgelegt werden. Einstellungen für eine einzelne Grafik können direkt der Grafikfunktion übergeben werden.
+
+
+Argument | Beschreibung
+---------|---------------
+`axes` | Achsen sollen (nicht) eingezeichnet werden
+`bg` | Hintergrundfarbe
+`cex` | Größe eines Punktes bzw. Buchstaben
+`col` | Farben
+`las` | Ausrichtung der Achsenbeschriftung
+`log` | Logarithmierte Darstellung
+`lty`, `lwd` | Linientyp, Linienbreite
+
+## Grafik: Konfigurierbarkeit
+
+
+
+Argument | Beschreibung
+---------|---------------
+`main`, `sub` | Grafiküberschrift, -unterschrift
+`mfcol`, `mfrow` | mehrere Grafiken in einem Bild
+`pch` | Symbol für einen Punkt
+`type` | Typ (`l`: Linie, `p`: Punkt, `b`: beides, `n`: nichts)
+`xlab`, `ylab` | x-/y-Achsenbeschriftung
+`xlim`, `ylim` | zu plottender Bereich in x-/y-Richtung
+
+## Grafik: Farben
+
+Farben können auf verschiedene Art angegeben werden. Entweder über den Farbnamen (falls bekannt) oder die zugehörige Stelle in der aktuellen Farbpalette. Eine ganze Zahl bezeichnet die Farbe an entsprechender Stelle in der aktuellen
+Farbpalette.
+
+```{r}
+palette()
+```
+
+
+##Grafik
+
+```{r, fig4, fig.height=5}
+x <- rnorm(200)
+par(mfrow = c(1, 2))
+plot(x, col = 3)
+plot(x, col = "green3")
+```
+
+
+
+## Grafik: Low-level Grafikfunktionen
+
+Mit Low-level Grafikfunktionen können Elemente (wie z.B. Punkte, Linien, Beschriftungen) zu einer bestehenden Grafik hinzugefügt werden. Ebenso können Grafiken initialisiert werden. Sie dienen damit also als Grundlage und zur Erweiterung von High-level Grafiken.
+
+
+## Grafik: Low-level Grafikfunktionen
+
+
+
+Funktion | Beschreibung
+---------|--------------
+`abline()` | ''intelligente'' Linie
+`arrows()` | Pfeile
+`axis()` | Achsen
+`grid()` | Gitternetz
+`legend()` | Legende
+`lines()` | Linien
+`plot.new()` | Grafik initialisieren
+`points()` | Punkte
+`polygon()` | (ausgefüllte) Polygone
+`text()` | Text
+`title()` | Beschriftung
+
+
+
+
+## Grafik
+
+```{r, fig5, fig.height=4}
+plot(Sepal.Width ~ Sepal.Length, data = iris, 
+     subset = iris$Species=="setosa", xlim = c(4, 8),
+     ylim = c(1, 6),col = 14)
+points(Sepal.Width ~ Sepal.Length, data = iris,
+       subset = iris$Species == "versicolor",
+       col = "lightgreen")
+points(Sepal.Width ~ Sepal.Length, data = iris,
+       subset = iris$Species == "virginica", 
+       col = "blue")
+
+```
+
+
+## Grafik
+
+```{r, eval=FALSE}
+legend("topright", legend = c("setosa", "versicolor",
+                              "virginica"),
+       pch = c(21, 21, 21), 
+       col = c(14, "lightgreen", "blue"))
+
+```
+
+```{r,fig6, echo=FALSE, fig.height=6}
+plot(Sepal.Width~Sepal.Length,data=iris,subset=
+       iris$Species=="setosa",xlim=c(4,8),ylim=c(1,6),col=14)
+points(Sepal.Width~Sepal.Length,data=iris,subset=
+         iris$Species=="versicolor",col="lightgreen")
+points(Sepal.Width~Sepal.Length,data=iris,subset=
+         iris$Species=="virginica",col="blue")
+legend("topright",legend=c("setosa","versicolor","virginica"),
+pch=c(21,21,21),col=c(14,"lightgreen","blue"))
+
+
+```
+
+## Grafik
+
+Weitere Informationen über die grafischen Möglichkeiten in R findet man z.B. auf den Seiten
+
+- http://en.wikibooks.org/wiki/R_Programming/Graphics
+- http://vis.supstat.com/
+- http://www.statmethods.net/advgraphs/trellis.html
+- http://rgm3.lab.nig.ac.jp/RGM
+- ...
+
+
+## Fragen
+
+Fragen zum Inhalt dieser Folien oder zum aktuellen Übungsblatt können im [Diskussionsforum](https://www.moodle.tum.de/mod/forum/view.php?id=238250) gestellt werden.
+
+
