@@ -33,9 +33,10 @@ Viele mathematische Operatoren sind komponentenweise definiert
 ```
 ## [1] 10 20 30 40 50 60
 ```
+Sind die verwendeten Vektoren nicht gleich lang, so wird der kürzere Vektor zyklisch fortgesetzt, wie man hier sieht
 
 ```r
-> y / c(5,10) # Vektoren haben unterschiedliche Länge
+> y / c(5,10)
 ```
 
 ```
@@ -45,10 +46,9 @@ Viele mathematische Operatoren sind komponentenweise definiert
 
 
 
-## Rechnen mit Vektoren
-	
+###	
 
-Zahlreiche Funktionen ebenfalls 
+Ebenso arbeiten zahlreiche Funktionen komponentenweise auf einem Vektor
 
 
 ```r
@@ -86,7 +86,7 @@ Andere Funktionen berechnen schnell skalare Zusammenfassungen von Vektoren, z.B.
 
 
 
-## Rechnen mit Vektoren
+###
 	
 Funktion | Beschreibung
 ---------|--------------
@@ -103,13 +103,13 @@ Funktion | Beschreibung
 
 ## Rechnen mit Matrizen
 
-`%*%` bezeichnet die Matrixmultiplikation. Die Inverse einer Matrix berechne man mit `solve()`.
+`%*%` bezeichnet die Matrixmultiplikation. Die Inverse einer Matrix berechnet man mit `solve()`.
 
 
 ```r
 > A <- c(1, 2, 2, 1)
 > dim(A) <- c(2,2)
-> (A.inv <- solve(A))
+> (A_inv <- solve(A))
 ```
 
 ```
@@ -119,7 +119,7 @@ Funktion | Beschreibung
 ```
 
 ```r
-> A.inv %*% A
+> A_inv %*% A
 ```
 
 ```
@@ -130,8 +130,9 @@ Funktion | Beschreibung
 
 
 
-## Rechnen mit Matrizen
+###
 
+Die Funktion `crossprod()` berechnet für die Eingabe `x` und `y` den Befehl `t(x) %*% y`. Handelt es sich bei `x` und `y` um eindimensionale Vektoren, so ist dies nichts anderers als das Skalarprodukt dieser Vektoren.
 
 ```r
 > t(2:4)
@@ -159,31 +160,8 @@ Funktion | Beschreibung
 ##      [,1]
 ## [1,]   20
 ```
+`tcrossprod()` hingegen berechnet `x %*% t(y)`.
 
-```r
-> 2:4 %*% 1:3
-```
-
-```
-##      [,1]
-## [1,]   20
-```
-
-
-
-## Rechnen mit Matrizen
-
-
-```r
-> 2:4 %*% t(1:3)
-```
-
-```
-##      [,1] [,2] [,3]
-## [1,]    2    4    6
-## [2,]    3    6    9
-## [3,]    4    8   12
-```
 
 ```r
 > tcrossprod(2:4, 1:3)
@@ -197,9 +175,8 @@ Funktion | Beschreibung
 ```
 
 
-## Rechnen mit Matrizen
 
-
+###	
 
 Funktion | Beschreibung
 ----------|--------------
@@ -213,3 +190,4 @@ Funktion | Beschreibung
 `eigen()` | Eigenwerte und -vektoren
 `%*%` | Matrixmultiplikation
 `nrow(), ncol()` | Zeilen-, Spaltenanzahl
+
