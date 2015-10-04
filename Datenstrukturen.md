@@ -3,12 +3,7 @@ Stephan Haug
 (Programmierpraktikum MA8505)   
 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Datenstrukturen 
-
-Datenstrukturen in R können bzgl. ihrer Dimension (1-dim,2-dim,n-dim) und ihrem Inhalt (homogen vs. heterogen)
-eingeteilt werden
+Alles in R ist ein Objekt. Diese Objekte können aus kleinen Bausteinen aufgebaut sein oder eben selbst nur kleine Bausteine sein. Man unterscheidet die Bausteine nun bzgl. ihrer Struktur. Diese unterschiedlichen Datenstrukturen können bzgl. ihrer Dimension (1-dim,2-dim,n-dim) und ihrem Inhalt (homogen vs. heterogen) eingeteilt werden, wie man in der nachfolgenden Tabelle sieht.
 
 Dimension  | homogener Inhalt | heterogener Inhalt
 --|------------------|-------------------
@@ -36,7 +31,7 @@ Ein Vektor (wie auch eine Liste) ist charakterisiert durch
 - Länge `length()`
 - weitere Attribute `attributes()`
 
-Es gibt vier Haupttypen: `logical, integer, double (numeric), character`, sogenannte atomic types. Weitere Typen sind `complex` und `raw` (ebenfalls atomic).
+Es gibt vier Haupttypen: `logical, integer, double (numeric), character`, sogenannte atomic types. Weitere Typen sind `complex` und `raw` (ebenfalls atomic). Auf diese beiden Typen werden wir aber nicht näher eingehen.
 
 Vektoren können mit der Funktion `c()` erzeugt werden
 
@@ -56,15 +51,15 @@ Vektoren können mit der Funktion `c()` erzeugt werden
 ## [1] 2
 ```
 
-## Vektoren
+###
 
 Neben der Angabe des Typs, kann man Vektoren auch auf einen bestimmten Typ testen.
 
 
 ```r
-> int.vek <- c(3L, 19L)
-> doub.vek <- c(2.4, 3, 1.75)
-> is.double(doub.vek)
+> int_vek <- c(3L, 19L)
+> doub_vek <- c(2.4, 3, 1.75)
+> is.double(doub_vek)
 ```
 
 ```
@@ -72,7 +67,7 @@ Neben der Angabe des Typs, kann man Vektoren auch auf einen bestimmten Typ teste
 ```
 
 ```r
-> is.integer(doub.vek)
+> is.integer(doub_vek)
 ```
 
 ```
@@ -80,7 +75,7 @@ Neben der Angabe des Typs, kann man Vektoren auch auf einen bestimmten Typ teste
 ```
 
 ```r
-> is.numeric(int.vek) 
+> is.numeric(int_vek) 
 ```
 
 ```
@@ -91,13 +86,13 @@ Neben der Angabe des Typs, kann man Vektoren auch auf einen bestimmten Typ teste
 > #numerischer Inhalt (double und integer)
 ```
 
-## Vektoren
+###
 
 Alle Elemente eines Vektors müssen vom gleichen Typ sein (homogener Inhalt). Werden verschiedene Typen kombiniert, so werden alle Elemente in den "flexibelsten", der beteiligtenTypen, konvertiert: `logical`(am wenigsten flexibel), `integer`, `double`, `character` (am flexibelsten)
 
 
 ```r
-> str(c(c("R", "programming"), int.vek))
+> str(c(c("R", "programming"), int_vek))
 ```
 
 ```
@@ -105,7 +100,7 @@ Alle Elemente eines Vektors müssen vom gleichen Typ sein (homogener Inhalt). We
 ```
 
 ```r
-> is.logical(logic.vek <- c(FALSE, TRUE))
+> is.logical(logic_vek <- c(FALSE, TRUE))
 ```
 
 ```
@@ -113,20 +108,20 @@ Alle Elemente eines Vektors müssen vom gleichen Typ sein (homogener Inhalt). We
 ```
 
 ```r
-> sum(c(logic.vek, int.vek))
+> sum(c(logic_vek, int_vek))
 ```
 
 ```
 ## [1] 23
 ```
 
-## Vektoren
+###
 
-Die Umwandlung des Typs kann auch ganz explizit vorgenommen werden mit den Funktionen `as.character(), as.numeric(), as.double(), as.integer(), as.logical()`.
+Die Umwandlung des Typs kann auch ganz explizit vorgenommen werden mit den Funktionen `as.character()`, `as.numeric()`, `as.double()`, `as.integer()` und `as.logical()`.
 
 
 ```r
-> as.numeric(logic.vek)
+> as.numeric(logic_vek)
 ```
 
 ```
@@ -164,7 +159,7 @@ Logische Operatoren wie `!`(Negation), `&` (und) oder `|` (oder) und Vergleiche 
 ```
 
 
-## Einschub: Logik
+###
 
 Weitere Funktionen zur logischen Abfrage sind `xor(), any()` oder `all()`. Wichtig ist noch die Abfrage nach fehlenden Werte (ausgedrückt durch `NA`). Dies geschieht mit `is.na()`.  
 
@@ -198,7 +193,7 @@ Weitere Funktionen zur logischen Abfrage sind `xor(), any()` oder `all()`. Wicht
 
 ## Vektoren: Folgen und Wiederholungen
 
-Folgen lassen sich leicht mit `seq()` oder dem Operator `:` und Wiederholungen mit `rep()` erzeugen
+Folgen lassen sich leicht mit `seq()` oder dem Operator `:` erzeugen. Für Wiederholungen kann man die Funktion `rep()` verwenden.
 
 
 ```r
@@ -234,7 +229,9 @@ Folgen lassen sich leicht mit `seq()` oder dem Operator `:` und Wiederholungen m
 ```
 
 
-## Vektoren: Folgen und Wiederholungen
+###
+
+Der Befehl
 
 
 ```r
@@ -244,6 +241,9 @@ Folgen lassen sich leicht mit `seq()` oder dem Operator `:` und Wiederholungen m
 ```
 ## [1] TRUE TRUE TRUE
 ```
+
+wiederholt das logische Element `TRUE` 3-mal. Es ist aber auch möglich die Elemente des zu
+wiederholenden Vektors unterschiedlich oft zu wiederholen.
 
 ```r
 > rep(2:4, times = 1:3)
@@ -256,53 +256,59 @@ Folgen lassen sich leicht mit `seq()` oder dem Operator `:` und Wiederholungen m
 
 ## Listen
 
-Listen unterscheiden sich von Vektoren primär durch die Eigenschaft, dass der Typ der Elemente
-einer Liste verschieden sein kann. 
+Listen unterscheiden sich von Vektoren primär durch die Eigenschaft, dass der Typ der 
+Elemente einer Liste verschieden sein kann. 
 
 
 ```r
-> x <- list(integer.vektor = int.vek, "wort", logic.vek, 
+> x <- list(integer_vektor = int_vek, "wort", logic_vek, 
 +            c(1.3, 2.89))
 > str(x)
 ```
 
 ```
 ## List of 4
-##  $ integer.vektor: int [1:2] 3 19
+##  $ integer_vektor: int [1:2] 3 19
 ##  $               : chr "wort"
 ##  $               : logi [1:2] FALSE TRUE
 ##  $               : num [1:2] 1.3 2.89
 ```
-`integer.vektor` ist hierbei der Name des ersten Listenelements.
+`integer_vektor` ist hierbei der Name des ersten Listenelements.
 
-## Listen 
+###
 
-Listen können - im Gegensatz zu Vektoren - auch rekursive aufgebaut sein.
+Listen können - im Gegensatz zu Vektoren - auch rekursive aufgebaut sein. So liefert der Befehl
 
 
 ```r
-> str(x)
+> str(list(x, c("a", c(1)))) 
 ```
 
 ```
-## List of 4
-##  $ integer.vektor: int [1:2] 3 19
-##  $               : chr "wort"
-##  $               : logi [1:2] FALSE TRUE
-##  $               : num [1:2] 1.3 2.89
+## List of 2
+##  $ :List of 4
+##   ..$ integer_vektor: int [1:2] 3 19
+##   ..$               : chr "wort"
+##   ..$               : logi [1:2] FALSE TRUE
+##   ..$               : num [1:2] 1.3 2.89
+##  $ : chr [1:2] "a" "1"
 ```
+
+eine Liste, deren erstes Element eine Liste ist. Wohingegen 
+
 
 ```r
-> str(c(c("a", c(1))))
+> str(c(FALSE, c("a", c(1))))
 ```
 
 ```
-##  chr [1:2] "a" "1"
+##  chr [1:3] "FALSE" "a" "1"
 ```
+einen `character` Vektor der Länge 3 liefert und nicht einen Vektor der Länge 2, dessen zweites Element selbst ein Vektor der Länge 2 ist.
 
-## Listen
+###
 
-
+Ob es sich um eine rekursive Liste handelt, kann man sich auch ausgeben lassen.
 
 ```r
 > x <- list(list(1,2), c(3,4))
@@ -325,7 +331,8 @@ Listen können - im Gegensatz zu Vektoren - auch rekursive aufgebaut sein.
 ##  $ : num [1:2] 3 4
 ```
 
-## Listen
+###
+
 Kombiniert man mit `c()` Listen und Vektoren, so wird daraus eine Liste.
 
 
@@ -342,13 +349,13 @@ Kombiniert man mit `c()` Listen und Vektoren, so wird daraus eine Liste.
 ##  $ : num 4
 ```
 
-## Listen
+###
 
-Listen sind vom Typ `list`. Dies kann mit `is.list()` überprüft werden. Mit `as.list()` kann ein Objekt in eine Liste konvertiert werden. 
+Listen sind vom Typ `list`. Dies kann mit `is.list()` überprüft werden. Mit `as.list()` kann ein Objekt in eine Liste konvertiert werden. `unlist()` ist dabei den gleichen Zwängen bzgl. des Typs der Vektorelemente unterworfen wie die Funktion `c()`.
 
 
 ```r
-> x <- as.list(c("Programmieren", "mit", "R"))
+> x <- as.list(c("Programmieren", "mit", "R", "MA", 8505))
 > typeof(x)
 ```
 
@@ -361,7 +368,8 @@ Listen sind vom Typ `list`. Dies kann mit `is.list()` überprüft werden. Mit `a
 ```
 
 ```
-## [1] "Programmieren" "mit"           "R"
+## [1] "Programmieren" "mit"           "R"             "MA"           
+## [5] "8505"
 ```
 
 ```r
@@ -372,9 +380,18 @@ Listen sind vom Typ `list`. Dies kann mit `is.list()` überprüft werden. Mit `a
 ## [1] TRUE
 ```
 
-## Listen
+```r
+> x <- list(c("Programmieren", "mit", "R", "MA"), 8505)
+> is.character(unlist(x))
+```
 
-Viele weitere Objekt sind Listen. So sind Data Frames (später mehr) und z.B. linear models Objekte Listen
+```
+## [1] TRUE
+```
+
+###
+
+Viele weitere Objekt sind Listen. So sind Data Frames (später mehr) und z.B. linear models Objekte (mehr dazu im Kurs Applied Regression MA4401) Listen
 
 
 ```r
@@ -418,7 +435,7 @@ Jedem Objekt kann eine beliebige Anzahl von Attributen zugeordnet werden. Diese 
 ```
 
 
-## Attribute
+###
 
 Attribute, die durch Modifizierung des Vektors nicht verloren gehen, sind:
 
@@ -429,7 +446,7 @@ Attribute, die durch Modifizierung des Vektors nicht verloren gehen, sind:
 Diese Attribute können durch `names(), dim()` und `class()` aufgerufen werden.
 
 
-## Attribute
+###
 
 Namen können dabei auf drei Arten vergeben werden
 
@@ -453,9 +470,7 @@ oder
 ```
 ## [1] "a" "b" "c"
 ```
-
-## Attribute
-... oder
+oder
 
 
 ```r
@@ -492,7 +507,7 @@ der die Altersklasse von drei Probanden beinhaltet.
 
 In der Statistik treten kategorielle Variablen relativ häufig auf.
 
-## Faktoren
+###
 
 Ein Vektor wird zum Faktor, falls er von der Klasse
 
@@ -515,7 +530,7 @@ ist und das Attribut `levels()` gesetzt ist, welches die erlaubten Werte der Fak
 ```
 
 
-## Faktoren
+###
 
 Will man einen "unzulässigen" Wert zu einem Faktor hinzufügen, so wird stattdessen ein fehlender Wert erzeugt
 
@@ -533,9 +548,9 @@ Können die Kategorien eines Faktors geordnet werden, so kann `ordered()` verwen
 
 
 ```r
-> alter.go = ordered(c(1,2), levels = c(1, 2), 
+> alter_ord = ordered(c(1,2), levels = c(1, 2), 
 +                    labels = c("unter 20", "über 60"))
-> alter.go
+> alter_ord
 ```
 
 ```
@@ -545,7 +560,7 @@ Können die Kategorien eines Faktors geordnet werden, so kann `ordered()` verwen
 
 
 
-## Faktoren
+###
 
 Ein Vorteil eines Faktors gegenüber einem `character` Vektor ist die Tatsache, dass in Operationen (z.B. Häufigkeiten bestimmen), angewendet auf den Faktor, alle Levels einbezogen werden (auch solche, die im Datensatz nicht vorhanden sind).
 
@@ -573,9 +588,9 @@ Ein Vorteil eines Faktors gegenüber einem `character` Vektor ist die Tatsache, 
 ```
 
 
-## Faktoren
+###
 
-Obwohl Faktoren oft wie `character`Vektoren aussehen, handelt es sich dabei um `integer` Vektoren wie man mit
+Obwohl Faktoren oft wie `character` Vektoren aussehen, handelt es sich dabei um `integer` Vektoren wie man mit
 
 
 ```r
@@ -607,7 +622,7 @@ Matrizen werden häufig verwendet um die entsprechenden mathematischen Berechnun
 
 Matrizen und Arrays können mit den Funktionen `matrix(), array()` und `dim()` erzeugt werden.
 
-## Matrizen und Arrays
+###
 
 
 ```r
@@ -637,7 +652,7 @@ Matrizen und Arrays können mit den Funktionen `matrix(), array()` und `dim()` e
 ```
 
 
-## Matrizen und Arrays
+###
 
 
 ```r
@@ -662,7 +677,7 @@ Matrizen und Arrays können mit den Funktionen `matrix(), array()` und `dim()` e
 ```
 
 
-## Matrizen und Arrays
+###
 
 Die Funktionen `length()` und `names()` haben "höherdimensionale Verallgemeinerungen":
 
@@ -670,7 +685,7 @@ Die Funktionen `length()` und `names()` haben "höherdimensionale Verallgemeiner
 - `rownames(), colnames()` für Matrizen und `dimnames()` für Arrays (als Liste)
 
 
-## Matrizen und Arrays
+###
 
 
 ```r
@@ -699,7 +714,7 @@ Die Funktionen `length()` und `names()` haben "höherdimensionale Verallgemeiner
 ## [1] "S1" "S2" "S3"
 ```
 
-## Matrizen und Arrays
+###
 
 
 ```r
@@ -711,25 +726,25 @@ Die Funktionen `length()` und `names()` haben "höherdimensionale Verallgemeiner
 ```
 
 ```r
-> dimnames(b) = list("F1.1", c("F2.1", "F2.2", "F2.3"), 
-+                     c("F3.1", "F3.2"))
+> dimnames(b) = list("F1_1", c("F2_1", "F2_2", "F2_3"), 
++                     c("F3_1", "F3_2"))
 > b
 ```
 
 ```
-## , , F3.1
+## , , F3_1
 ## 
-##      F2.1 F2.2 F2.3
-## F1.1    1    2    3
+##      F2_1 F2_2 F2_3
+## F1_1    1    2    3
 ## 
-## , , F3.2
+## , , F3_2
 ## 
-##      F2.1 F2.2 F2.3
-## F1.1    4    5    6
+##      F2_1 F2_2 F2_3
+## F1_1    4    5    6
 ```
 
 
-## Matrizen und Arrays
+###
 
 Zum Kombinieren von Matrizen können die Funktionen `cbind()` und `rbind()` verwendet werden (sofern die Dimensionen passen).
 
@@ -755,11 +770,9 @@ Zum Kombinieren von Matrizen können die Funktionen `cbind()` und `rbind()` verw
 ##     1  2  3
 ```
 
-## Matrizen und Arrays 
+###
 
-`t()` berechnet die Transponierte einer Matrix und `%*%` berechnet das Matrixproduk zweier Matrizen.
-
-`is.matrix()` und `is.array()` überprüfen ob ein Objekt der Klasse `matrix` bzw. `array` vorliegt. Mit `as.matrix()` und `as.array()` kann ein Vektor in eine Matrix bzw. ein Array umgewandelt werden.
+`t()` berechnet die Transponierte einer Matrix und `%*%` berechnet das Matrixproduk zweier Matrizen. `is.matrix()` und `is.array()` überprüfen ob ein Objekt der Klasse `matrix` bzw. `array` vorliegt. Mit `as.matrix()` und `as.array()` kann ein Vektor in eine Matrix bzw. ein Array umgewandelt werden.
 
 
 ```r
@@ -788,7 +801,7 @@ Erzeugt wird ein Data Frame mit der Funktion `data.frame()`, die benannte Vektor
 
 *Bemerkung:* Datensätze werden in R üblicherweise als Data Frame gespeichert.
 
-## Data Frames
+###
 
 
 ```r
@@ -804,7 +817,7 @@ Erzeugt wird ein Data Frame mit der Funktion `data.frame()`, die benannte Vektor
 
 `data.frame()` verwandelt Zeichenketten automatisch in Faktoren. Für viele Datensätze ist dies das gewünschte Verhalten.
 
-## Data Frames
+###
 
 Sollen `character` Vektoren nicht automatisch in Faktoren umgewandelt werden, so kann man die Option `stringsAsFactors` verwenden.
 
@@ -822,7 +835,7 @@ Sollen `character` Vektoren nicht automatisch in Faktoren umgewandelt werden, so
 ```
 
 
-## Data Frames
+###
 
 Nachdem Data Frames spezielle Listen sind, sind sie vom Typ
 
@@ -844,7 +857,7 @@ und gehören zur Klasse
 ```
 Man kann mit `is.data.frame()` überprüfen ob es sich bei einem Objekt um ein Data Frame handelt.
 
-## Data Frames
+###
 
 Data Frames können mit `cbind()` und `rbind()` kombiniert werden. 
 
@@ -862,7 +875,7 @@ Data Frames können mit `cbind()` und `rbind()` kombiniert werden.
 
 Für `cbind()` muss die Zeilenanzahl der beteiligten Data Frames übereinstimmen.
 
-## Data Frames
+###
 
 `rbind()` erwartet Data Frames mit gleicher Spaltenzahl und gleichen Spaltennamen.
 

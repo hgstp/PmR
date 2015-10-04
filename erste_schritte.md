@@ -41,9 +41,10 @@ getwd()
 
 
 
+
 ```r
- setwd("..")
- getwd()
+setwd("..")
+getwd()
 ```
 
 ```
@@ -51,8 +52,7 @@ getwd()
 ```
 
 
-## Workspace - der Arbeitsplatz
-
+###
 
 Beenden von R erfolgt durch `q()`. Dabei kann man
 den Workspace samt Befehlen speichern. Die eingegebenen Befehle werden in einer Datei `.Rhistory` und der Workspace in `.Rdata` gespeichert. 
@@ -98,10 +98,9 @@ Die Notation für die vier Grundrechenarten lautet in R:
 ## [1] -7
 ```
 
-## R als Taschenrechner
-Es existieren eine Vielzahl von mathematischen und statistischen Funktionen in R. Funktionen werden aufgerufen durch ihren 
-Namen gefolgt von runden Klammern. Funktionsargumente können
-innerhalb der Klammern übergeben werden.
+###
+
+Es existieren eine Vielzahl von mathematischen und statistischen Funktionen in R. Funktionen werden aufgerufen durch ihren  Namen gefolgt von runden Klammern. Funktionsargumente können innerhalb der Klammern übergeben werden.
 
 
 
@@ -129,7 +128,7 @@ sin(pi)
 ## [1] 1.224606e-16
 ```
 
-## R als Taschenrechner
+###
 
 
 ```r
@@ -149,9 +148,9 @@ log(10)
 ```
 
 
-## R als Taschenrechner
-Vielen Funktionen in R kann man mehrere Argumente übergeben,
-z.B.: 
+###
+
+Vielen Funktionen in R kann man mehrere Argumente übergeben, z.B.: 
 
 
 ```r
@@ -178,6 +177,7 @@ log
 ## function (x, base = exp(1))  .Primitive("log")
 ```
 
+Man erkennt, dass die Basis `base` standardmäßig den Wert $e$ besitzt. Im Standardfall wird also der natürliche Logarithmus berechent. Ferner sieht man, dass es sich um eine `Primitive` Funktion handelt (dazu später mehr).
 
 
 ```r
@@ -188,8 +188,9 @@ log(10, base = exp(1))
 ## [1] 2.302585
 ```
 
-## R als Taschenrechner
-Verwendet man Funktionen nicht korrekt, so erhält Fehlermeldungen bzw. Warnungen, wie z.B.: 
+### 
+
+Verwendet man Funktionen nicht korrekt, so erhält man Fehlermeldungen bzw. Warnungen, wie z.B.: 
 
 
 ```r
@@ -227,6 +228,8 @@ Sollte die vorhandene Dokumentation (die Beispiele sind meistens sehr hilfreich)
 * schlägt man in einem evtl. vorhanden Buch nach
 * sucht man im Netz (Google oder auf Seiten wie http://stackoverflow.com/tags/r/info). Aufgrund der großen Verbreitung von R, wird man (fast) immer fündig.
 
+Während des Kurses MA8505 ist natürlich das Forum des Kurses eine weitere Möglichkeit Unterstützung bei R Problemen zu bekommen.
+
 
 ## Pakete
 
@@ -245,13 +248,13 @@ geladen und mit `detach()` entladen. Hilfe zu Paketen gibt es mit
 
 Standardmäßig werden die Pakete `base, datasets, graphics, grDevices, methods, stats` und `utils` beim Starten geladen. Alle weiteren Pakete müssen per Befehl geladen werden.
 
-## Pakete
+###
 
 Neben `base` enthält die R Basisdistribution noch die Pakete
 
-`compiler, datasets, graphics, grDevices, grid, methods, parallel, splines, stats, stats4, tcltk, tools, util` (Standard-Pakete),
+`compiler, datasets, graphics, grDevices, grid, methods, parallel, splines, stats, stats4, tcltk, tools, utils` (Standard-Pakete),
 
-`boot, cluster, codetools, foreign, KernSmooth, lattice, Matrix, mgcv, nlme, rpart, survival, class, MASS, nnet` und `spatial` (empfohlene Pakete).
+`boot, class, cluster, codetools, foreign, KernSmooth, lattice, MASS, Matrix, mgcv, nlme, nnet, rpart, spatial` und `survival` (empfohlene Pakete).
 
 Alle weiteren Pakete müssen mit dem Befehl
 
@@ -260,7 +263,7 @@ install.packages("Paketname")
 ```
 installiert werden (automatisches Herunterladen der aktuellsten Version von CRAN und anschließendes Installieren).
 
-## Pakete
+###
 
 Installierte Pakete liegen in einer Bibliothek. Man kann mit mehreren Bibliotheken arbeiten. In der Regel verwendet man zwei. Der Befehl
 
@@ -283,23 +286,3 @@ install.packages("Paketname",
 Mit `update.packages()` werden neue Versionen installiert.
 
 
-## Hausaufgaben
-
-Jede Woche ist ein Übungsblatt zu bearbeiten. Zum Bestehen des Moduls ist eine *sinnvolle Bearbeitung* (ausgedrückt durch einen variierenden Anteil der pro Aufgabe zu erreichenden Punkte) von
-
-> 75% der Aufgaben
-
-notwendig.
-
-Die Abgabe der Aufgaben erfolgt einzeln im Moodle-Kurs. Wir wollen Sie aber dazu auffordern die Aufgaben in der Gruppe zu besprechen/bearbeiten. Wir erwarten aber auch einen **eigen- ständigen** Beitrag.
-
-## Abgabe: Hausaufgaben
-
-Die Abgabe **muss** im pdf Dateiformat erfolgen. Dieses pdf erstellen Sie indem Sie in RStudio 
-
-- eine R Markdown Datei erstellen
-- als Default Ausgabe der R Markdown Datei das pdf Format wählen
-
-Dazu benötigen Sie das Paket `knitr` (siehe auch erste Folie) und eine [TeX Installation](http://www.ma.tum.de/Studienbeitraege/LaTeX) (MiKTeX, MacTeX, TeX Live).
-
-**Hinweis:** Ihre Lösung muss *immer* auch den Output Ihrer Befehle enthalten. Die reine Angabe von Befehlen ist *nicht ausreichend*.
