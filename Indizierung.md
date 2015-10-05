@@ -1,6 +1,4 @@
-# Programmieren mit R: Indizierung
-Stephan Haug  
-(Programmierpraktikum MA8505)   
+# Indizierung
 
 
 
@@ -581,7 +579,7 @@ Komponenten einer Liste können durch eine Zuweisung auch entfernt werden. Hierz
 Im Folgenden wollen wir ein paar Beispiele zeigen, in denen durch Indizieren (und Zuweisen) speziellere Aufgaben gelöst werden. Einige dieser Aufgaben können auch durch spezialisiertere Funktionen wie `subset(), merge()` oder `plyr::arrange()` gelöst werden.
 
 
-*Beispiel 1:*
+#### Beispiel 1
 
 ```r
 > noten <- sample( 1:5, 4, replace = TRUE)
@@ -593,15 +591,16 @@ Im Folgenden wollen wir ein paar Beispiele zeigen, in denen durch Indizieren (un
 ```
 
 ```
-##     note  beschr. bestanden
-## 1      1 sehr gut      TRUE
-## 3      3    befr.      TRUE
-## 1.1    1 sehr gut      TRUE
-## 1.2    1 sehr gut      TRUE
+##     note   beschr. bestanden
+## 5      5  mangelh.     FALSE
+## 4      4 ausreich.      TRUE
+## 1      1  sehr gut      TRUE
+## 1.1    1  sehr gut      TRUE
 ```
 
 
-*Beispiel 2:* `order()` gibt die Indizes zurück die den Input in die gewünschte (hier gibt es mehrere Möglichkeiten) Ordnung bringen.
+#### Beispiel 2 
+`order()` gibt die Indizes zurück die den Input in die gewünschte (hier gibt es mehrere Möglichkeiten) Ordnung bringen.
 
 
 ```r
@@ -633,17 +632,18 @@ Damit können nun leicht die Zeilen oder Spalten höherdimensionaler Objekte sor
 
 ```
 ##   x y z
-## 6 1 1 f
-## 1 2 6 a
+## 4 1 3 d
+## 6 2 1 f
 ## 3 3 4 c
-## 4 4 3 d
-## 2 5 5 b
-## 5 6 2 e
+## 1 4 6 a
+## 5 5 2 e
+## 2 6 5 b
 ```
 Die Zeilen von `df` werden also anhand der Einträge von Spalte `x` geordnet.
 
 
-*Beispiel 3:* Zwei Möglichkeiten Spalten eines Data Frames zu löschen.
+#### Beispiel 3 
+Zwei Möglichkeiten Spalten eines Data Frames zu löschen.
 
 
 ```r
@@ -663,7 +663,8 @@ Die Zeilen von `df` werden also anhand der Einträge von Spalte `x` geordnet.
 
 
 
-*Beispiel 4:* Indizieren über logische Abfragen.
+#### Beispiel 4 
+Indizieren über logische Abfragen.
 
 
 ```r

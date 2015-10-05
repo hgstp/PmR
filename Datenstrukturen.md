@@ -1,6 +1,4 @@
-# Programmieren mit R: Datenstrukturen
-Stephan Haug  
-(Programmierpraktikum MA8505)   
+# Datenstrukturen
 
 
 Alles in R ist ein Objekt. Diese Objekte können aus kleinen Bausteinen aufgebaut sein oder eben selbst nur kleine Bausteine sein. Man unterscheidet die Bausteine nun bzgl. ihrer Struktur. Diese unterschiedlichen Datenstrukturen können bzgl. ihrer Dimension (1-dim,2-dim,n-dim) und ihrem Inhalt (homogen vs. heterogen) eingeteilt werden, wie man in der nachfolgenden Tabelle sieht.
