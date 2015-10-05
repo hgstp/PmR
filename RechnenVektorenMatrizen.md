@@ -46,7 +46,7 @@ Sind die verwendeten Vektoren nicht gleich lang, so wird der kürzere Vektor zyk
 
 
 
-###	
+	
 
 Ebenso arbeiten zahlreiche Funktionen komponentenweise auf einem Vektor
 
@@ -86,7 +86,7 @@ Andere Funktionen berechnen schnell skalare Zusammenfassungen von Vektoren, z.B.
 
 
 
-###
+
 	
 Funktion | Beschreibung
 ---------|--------------
@@ -130,7 +130,7 @@ Funktion | Beschreibung
 
 
 
-###
+
 
 Die Funktion `crossprod()` berechnet für die Eingabe `x` und `y` den Befehl `t(x) %*% y`. Handelt es sich bei `x` und `y` um eindimensionale Vektoren, so ist dies nichts anderers als das Skalarprodukt dieser Vektoren.
 
@@ -176,7 +176,7 @@ Die Funktion `crossprod()` berechnet für die Eingabe `x` und `y` den Befehl `t(
 
 
 
-###	
+	
 
 Funktion | Beschreibung
 ----------|--------------

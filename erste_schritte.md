@@ -52,7 +52,7 @@ getwd()
 ```
 
 
-###
+
 
 Beenden von R erfolgt durch `q()`. Dabei kann man
 den Workspace samt Befehlen speichern. Die eingegebenen Befehle werden in einer Datei `.Rhistory` und der Workspace in `.Rdata` gespeichert. 
@@ -98,7 +98,7 @@ Die Notation für die vier Grundrechenarten lautet in R:
 ## [1] -7
 ```
 
-###
+
 
 Es existieren eine Vielzahl von mathematischen und statistischen Funktionen in R. Funktionen werden aufgerufen durch ihren  Namen gefolgt von runden Klammern. Funktionsargumente können innerhalb der Klammern übergeben werden.
 
@@ -128,7 +128,7 @@ sin(pi)
 ## [1] 1.224606e-16
 ```
 
-###
+
 
 
 ```r
@@ -148,7 +148,7 @@ log(10)
 ```
 
 
-###
+
 
 Vielen Funktionen in R kann man mehrere Argumente übergeben, z.B.: 
 
@@ -188,7 +188,7 @@ log(10, base = exp(1))
 ## [1] 2.302585
 ```
 
-### 
+ 
 
 Verwendet man Funktionen nicht korrekt, so erhält man Fehlermeldungen bzw. Warnungen, wie z.B.: 
 
@@ -248,7 +248,7 @@ geladen und mit `detach()` entladen. Hilfe zu Paketen gibt es mit
 
 Standardmäßig werden die Pakete `base, datasets, graphics, grDevices, methods, stats` und `utils` beim Starten geladen. Alle weiteren Pakete müssen per Befehl geladen werden.
 
-###
+
 
 Neben `base` enthält die R Basisdistribution noch die Pakete
 
@@ -263,7 +263,7 @@ install.packages("Paketname")
 ```
 installiert werden (automatisches Herunterladen der aktuellsten Version von CRAN und anschließendes Installieren).
 
-###
+
 
 Installierte Pakete liegen in einer Bibliothek. Man kann mit mehreren Bibliotheken arbeiten. In der Regel verwendet man zwei. Der Befehl
 

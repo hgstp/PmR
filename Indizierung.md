@@ -17,7 +17,7 @@ Man unterscheidet sechs verschiedene Indizierungstypen. Indizierung über
 
 ## `[`: Vektoren
 
-Beginnen wollen wir mit dem Operator `[`. Am einfachsten ist die Indizierung atomare Vektoren zu verstehen. Daher beginnen wir mit der Indizierung von Vektoren über positive Integers.
+Beginnen wollen wir mit dem Operator `[`. Am einfachsten ist die Indizierung atomarer Vektoren zu verstehen. Daher beginnen wir mit der Indizierung von Vektoren über positive Integers.
 
 
 ```r
@@ -45,7 +45,6 @@ Beginnen wollen wir mit dem Operator `[`. Am einfachsten ist die Indizierung ato
 ## [1] 1 3 4 5
 ```
 
-## `[`: Vektoren
 
 Im Gegensatz zur Indizierung über positive Integers, werden bei der Indizierung mit negativen Integers die ausgewählten Position entfernt.
 
@@ -66,7 +65,6 @@ Im Gegensatz zur Indizierung über positive Integers, werden bei der Indizierung
 ## [1] 1
 ```
 
-## `[`: Vektoren
 
 Bei der Indizierung über logische Vektoren, werden alle Elemente des Vektors ausgewählt deren zugehöriger logischer Wert gleich `TRUE` ist.
 
@@ -95,9 +93,6 @@ Bei der Indizierung über logische Vektoren, werden alle Elemente des Vektors au
 ## [1] 4 3 5
 ```
 
-
-## `[`: Vektoren
-
 Man beachte
 
 ```r
@@ -118,8 +113,6 @@ Der logische Vektor wird zyklisch fortgesetzt bis er der Länge des zu indiziere
 ## [1] 1 3
 ```
 
-
-## `[`: Vektoren
 
 Besitzt der zu indizierende Vektor das Attribute `names`, so kann auch über dieses auf die Elemente des Vektors zugegriffen werden.
 
@@ -143,7 +136,6 @@ Besitzt der zu indizierende Vektor das Attribute `names`, so kann auch über die
 ##   NA
 ```
 
-## `[`: Vektoren
 
 Gibt man nichts zur Indizierung ein, so erhält man wieder den kompletten Vektor. Im Gegensatz dazu liefert die Null auch einen Vektor der Länge Null.
 
@@ -199,9 +191,6 @@ Höherdimensionale Strukturen können über
 indiziert werden. Indiziert man über mehrere Vektoren, so kann einer (oder mehrere) gleich "nichts" gesetzt werden. Die entsprechende Komponente wird dann vollständig ausgewählt.
 
 
-## `[`: Matrizen und Arrays
-
-
 
 ```r
 > a <- matrix(1:9, nrow = 3)
@@ -234,11 +223,7 @@ indiziert werden. Indiziert man über mehrere Vektoren, so kann einer (oder mehr
 ##   3   9
 ```
 
-## `[`: Matrizen und Arrays
-
-Matrizen und Arrays sind als Vektoren implementiert. Daher kann auch nur über einen Vektor auf die entsprechenden Elemente zugegriffen werden.
-
-Die Objekte sind dabei spaltenweise "abgelegt". Um also auf die letzte Zeile der $3\times 3$ Matrix `a` zuzugreifen, gehen wir wie folgt vor: 
+Matrizen und Arrays sind als Vektoren implementiert. Daher kann auch nur über einen Vektor auf die entsprechenden Elemente zugegriffen werden. Die Objekte sind dabei spaltenweise "abgelegt". Um also auf die letzte Zeile der $3\times 3$ Matrix `a` zuzugreifen, gehen wir wie folgt vor: 
 
 
 ```r
@@ -248,9 +233,6 @@ Die Objekte sind dabei spaltenweise "abgelegt". Um also auf die letzte Zeile der
 ```
 ## [1] 3 6 9
 ```
-
-
-## `[`: Matrizen und Arrays
 
 Der Zugriff kann auch über eine integer oder character Matrix erfolgen. Jede Zeile bestimmt dabei eine Position, d.h. jeder Spalteneintrag definiert eine Dimension.
 
@@ -270,7 +252,7 @@ Der Zugriff kann auch über eine integer oder character Matrix erfolgen. Jede Ze
 
 ```r
 > # äußeres Produkt der Funktion paste
-> b[ matrix( ncol = 2, byrow = TRUE, c(1, 1, 3, 1, 2, 4))]
+> b[matrix(ncol = 2, byrow = TRUE, c(1, 1, 3, 1, 2, 4))]
 ```
 
 ```
@@ -279,12 +261,14 @@ Der Zugriff kann auch über eine integer oder character Matrix erfolgen. Jede Ze
 
 ## `[`: Data Frames
 
-Data Frames zeigen ein unterschiedliches Verhalten, je nachdem ob man mit einem oder mehreren Vektoren die Indizierung durchführt.
+Data Frames können entweder wie Listen - über einen Vektor, der die Spalten des Data Frames definiert - oder wie Matrizen indiziert werden. Geht man wie bei einer Matrix vor, so ist ein Vektor für die Indizierung der Zeilen und ein weiterer für die Indizierung der
+Spalten zu übergeben. Einer der beiden Vektoren kann natürlich wieder *leer* sein, was 
+allen Zeilen bzw. Spalten entspricht.
 
 
 ```r
-> d <- data.frame( x = 1:3, y = 3:1, z = letters[1:3])
-> d[2,]
+> d <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
+> d[2, ]
 ```
 
 ```
@@ -293,7 +277,7 @@ Data Frames zeigen ein unterschiedliches Verhalten, je nachdem ob man mit einem 
 ```
 
 ```r
-> d[,c(1, 3)]
+> d[, c(1, 3)]
 ```
 
 ```
@@ -303,12 +287,10 @@ Data Frames zeigen ein unterschiedliches Verhalten, je nachdem ob man mit einem 
 ## 3 3 c
 ```
 
-
-## `[`: Data Frames
-
+Führt man die Indizierung nur mit einem Vektor durch, so erhalten man die kompletten Spalten
 
 ```r
-> d[c("x", "y")]  # wird eine Liste
+> d[c("x", "y")]
 ```
 
 ```
@@ -318,8 +300,11 @@ Data Frames zeigen ein unterschiedliches Verhalten, je nachdem ob man mit einem 
 ## 3 3 1
 ```
 
+Dies entspricht also dem Befehl
+
+
 ```r
-> d[, c("x", "y")] # wird eine Matrix
+> d[, c("x", "y")]
 ```
 
 ```
@@ -328,9 +313,6 @@ Data Frames zeigen ein unterschiedliches Verhalten, je nachdem ob man mit einem 
 ## 2 2 2
 ## 3 3 1
 ```
-
-## `[`: Data Frames
-
 
 Greift man nur auf eine Spalte/Zeile zu, so wird daraus ein Data Frame bzw. ein Vektor.
 
@@ -359,7 +341,7 @@ Zur Indizierung existieren noch die Operatoren `[[` und `$`. `[[` liefert im Unt
 
 
 ```r
-> a <- list( eins = 1, zwei = c(2, 3))
+> a <- list(eins = 1, zwei = c(2, 3))
 > a[[1]]
 ```
 
@@ -374,8 +356,6 @@ Zur Indizierung existieren noch die Operatoren `[[` und `$`. `[[` liefert im Unt
 ```
 ## [1] 2 3
 ```
-
-## Weitere Operatoren
 
 Data Frames sind Listen von Spaltenvektoren. Daher kann man mit `[[` auf die Spalten eines Data Frames zugreifen indem man den Index der jeweiligen Spalte angibt.
 
@@ -399,10 +379,7 @@ Data Frames sind Listen von Spaltenvektoren. Daher kann man mit `[[` auf die Spa
 ## [1] 3 2 1
 ```
 
-## Weitere Operatoren
-
-Der `$` Operator erlaubt folgende verkürzte Schreibweise `x$y`,
-die äquivalent ist zum Befehl `x[["y", exact = FALSE]]`
+Der `$` Operator erlaubt folgende verkürzte Schreibweise `x$y`, die äquivalent ist zum Befehl `x[["y", exact = FALSE]]`
 
 
 ```r
@@ -425,13 +402,8 @@ die äquivalent ist zum Befehl `x[["y", exact = FALSE]]`
 
 ## Vereinfachendes und erhaltendes Indizieren
 
-Vereinfachendes Indizieren wählt die einfachste Datenstruktur, die das Ergebnis noch darstellen kann.
-
-Beim erhaltenden Indizieren haben Ein- und Ausgabe die gleiche Struktur.
-
+Vereinfachendes Indizieren wählt die einfachste Datenstruktur, die das Ergebnis noch darstellen kann. Beim erhaltenden Indizieren haben Ein- und Ausgabe die gleiche Struktur.
 Die Befehle zum vereinfachenden und erhaltenden Indizieren variieren ja nach Datenstruktur.
-
-## Vereinfachendes und erhaltendes Indizieren
 
 Struktur | vereinfachend | erhaltend
 ---------|---------------|----------
@@ -443,7 +415,6 @@ Array | `x[,1]` | `x[,1, drop = FALSE]`
 Data Frame | `x[,1]` | `x[, 1, drop = FALSE]`  
 Data Frame | `x[[1]]` | `x[1]`
 
-## Vereinfachendes und erhaltendes Indizieren
 
 Das vereinfachende Indizieren führt (je nach Struktur der Eingabe) folgende Vereinfachungen durch
 
@@ -456,10 +427,12 @@ Das vereinfachende Indizieren führt (je nach Struktur der Eingabe) folgende Ver
 ```
 ## [1] 1
 ```
+`[[` entfernt also den Namen eines Vektorelements.
+
 
 ```r
 > l <- list(a = 1, b = 2)
-> l[[1]] # liefert den Inhalt des ersten Listenelements
+> l[[1]] 
 ```
 
 ```
@@ -473,31 +446,32 @@ Das vereinfachende Indizieren führt (je nach Struktur der Eingabe) folgende Ver
 ```
 ##  num 1
 ```
-
-## Vereinfachendes und erhaltendes Indizieren
+`[[` liefert für eine Liste den Inhalt des entsprechenden Listenelements und entfernt dabei auch den Namen des Elements.
 
 
 ```r
-> f <- factor( c("gruppe 1", "gruppe 2"))
-> f[1, drop = TRUE] # löscht nicht verwendete levels
+> f <- factor(c("gruppe 1", "gruppe 2"))
+> f[1, drop = TRUE] 
 ```
 
 ```
 ## [1] gruppe 1
 ## Levels: gruppe 1
 ```
+`[, drop =TRUE]` löscht nicht verwendete levels eines Faktors.
+
 
 ```r
 > m <- matrix(1:4, nrow = 2)
-> m[1, ] # löscht die Dimension eindim. Komponenten
+> m[1, ] 
 ```
 
 ```
 ## [1] 1 3
 ```
+`[` löscht die Dimension des resultierenden Arrays. Zum Vergleich
 
 ```r
-> # zum Vergleich
 > m[1, , drop = FALSE]
 ```
 
@@ -506,21 +480,20 @@ Das vereinfachende Indizieren führt (je nach Struktur der Eingabe) folgende Ver
 ## [1,]    1    3
 ```
 
-## Vereinfachendes und erhaltendes Indizieren
-
 
 
 ```r
-> d <- data.frame( a = 1:2, b = 1:2)
-> str(d[[1]]) # eine Spalte wird zu einem Vektor
+> d <- data.frame(a = 1:2, b = 1:2)
+> str(d[[1]])
 ```
 
 ```
 ##  int [1:2] 1 2
 ```
+`[[` wandelt die Spalte eines Data Frames in einen Vektor um. Zum Vergleich
+
 
 ```r
-> # zum Vergleich
 > str(d[, "a", drop = FALSE])
 ```
 
@@ -528,7 +501,6 @@ Das vereinfachende Indizieren führt (je nach Struktur der Eingabe) folgende Ver
 ## 'data.frame':	2 obs. of  1 variable:
 ##  $ a: int  1 2
 ```
-
 
 ## Indizieren und Zuweisen
 
@@ -544,11 +516,28 @@ Mit jeder Indizierung können auch neue Werte den entsprechenden Objekten zugewi
 ```
 ## [1] 2 7 3 4 5
 ```
+Solange die Anzahl der zu ersetzenden Einträge ein Vielfaches der Anzahl neuer Werte ist, müssen diese nicht übereinstimmen.
+
 
 ```r
-> x[-1] <- 4:1 # Länge RS = Vielfaches Länge LS 
-> x[-1] <- 4 # funktioniert ohne Warnung
+> x[-1] <- 4:1
+> x
 ```
+
+```
+## [1] 2 4 3 2 1
+```
+
+```r
+> x[-1] <- 4
+> x
+```
+
+```
+## [1] 2 4 4 4 4
+```
+
+Ist die Anzahl zu ersetztender Einträge kein Vielfaches der Länge des zuzuweisenden Objekts, so findet die Zuweisung trotzdem statt. Es erfolgt aber auch eine zusätzliche Warnung.
 
 
 ```r
@@ -559,9 +548,6 @@ Mit jeder Indizierung können auch neue Werte den entsprechenden Objekten zugewi
 ## Warning in x[-1] <- 3:1: Anzahl der zu ersetzenden Elemente ist kein
 ## Vielfaches der Ersetzungslänge
 ```
-
-
-## Indizieren und Zuweisen
 
 Komponenten einer Liste können durch eine Zuweisung auch entfernt werden. Hierzu wird mit dem Operator `[[` dem entsprechenden Listenelement NULL zugewiesen. Verwendet man `[` so ist der Inhalt tatsächlich NULL.
 
@@ -592,33 +578,28 @@ Komponenten einer Liste können durch eine Zuweisung auch entfernt werden. Hierz
 
 ## (Sinnvolle) Anwendungen
 
-Im Folgenden wollen wir ein paar Beispiele zeigen, in denen durch Indizieren (und Zuweisen) speziellere Aufgaben gelöst werden. Einige dieser Aufgaben können auch durch spezialisiertere Funktionen wie `subset(), merge()` oder 
-`plyr::arrange()` gelöst werden.
+Im Folgenden wollen wir ein paar Beispiele zeigen, in denen durch Indizieren (und Zuweisen) speziellere Aufgaben gelöst werden. Einige dieser Aufgaben können auch durch spezialisiertere Funktionen wie `subset(), merge()` oder `plyr::arrange()` gelöst werden.
 
-
-## (Sinnvolle) Anwendungen
 
 *Beispiel 1:*
 
 ```r
 > noten <- sample( 1:5, 4, replace = TRUE)
-> info.noten <- data.frame(
-+   note = 1:5, beschr. = c("sehr gut", "gut", "befr.", 
-+                           "ausreich.","mangelh."),
-+   bestanden = c(rep(TRUE, 4), FALSE))
-> rownames(info.noten) <- info.noten$note
-> info.noten[ noten, ]
+> info_noten <- data.frame(note = 1:5, 
++                          beschr. = c("sehr gut", "gut", "befr.", "ausreich.","mangelh."),
++                          bestanden = c(rep(TRUE, 4), FALSE))
+> rownames(info_noten) <- info_noten$note
+> info_noten[noten, ]
 ```
 
 ```
-##     note   beschr. bestanden
-## 5      5  mangelh.     FALSE
-## 3      3     befr.      TRUE
-## 4      4 ausreich.      TRUE
-## 5.1    5  mangelh.     FALSE
+##     note  beschr. bestanden
+## 1      1 sehr gut      TRUE
+## 3      3    befr.      TRUE
+## 1.1    1 sehr gut      TRUE
+## 1.2    1 sehr gut      TRUE
 ```
 
-## (Sinnvolle) Anwendungen
 
 *Beispiel 2:* `order()` gibt die Indizes zurück die den Input in die gewünschte (hier gibt es mehrere Möglichkeiten) Ordnung bringen.
 
@@ -640,7 +621,6 @@ Im Folgenden wollen wir ein paar Beispiele zeigen, in denen durch Indizieren (un
 ## [1] "a" "b" "c"
 ```
 
-## (Sinnvolle) Anwendungen
 
 Damit können nun leicht die Zeilen oder Spalten höherdimensionaler Objekte sortiert werden.
 
@@ -648,24 +628,23 @@ Damit können nun leicht die Zeilen oder Spalten höherdimensionaler Objekte sor
 ```r
 > df <- data.frame(x = sample(1:6), y = 6:1, 
 +                  z = letters[1:6])
-> df[order(df$x), ] # sortieren der Zeilen nach Spalte x
+> df[order(df$x), ] 
 ```
 
 ```
 ##   x y z
 ## 6 1 1 f
-## 2 2 5 b
-## 1 3 6 a
-## 5 4 2 e
-## 4 5 3 d
-## 3 6 4 c
+## 1 2 6 a
+## 3 3 4 c
+## 4 4 3 d
+## 2 5 5 b
+## 5 6 2 e
 ```
+Die Zeilen von `df` werden also anhand der Einträge von Spalte `x` geordnet.
 
-
-
-## (Sinnvolle) Anwendungen
 
 *Beispiel 3:* Zwei Möglichkeiten Spalten eines Data Frames zu löschen.
+
 
 ```r
 > df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
@@ -683,7 +662,6 @@ Damit können nun leicht die Zeilen oder Spalten höherdimensionaler Objekte sor
 ```
 
 
-## (Sinnvolle) Anwendungen
 
 *Beispiel 4:* Indizieren über logische Abfragen.
 
@@ -711,12 +689,7 @@ Damit können nun leicht die Zeilen oder Spalten höherdimensionaler Objekte sor
 ## Lotus Europa    4 113
 ```
 
-Dies ist die häufigste Methode zur Auswahl spezieller Teile eines Datensatzes.
-
-
-## (Sinnvolle) Anwendungen
-
-Die vorherige Aufgabe kann auch mit der Funktion `subset()` bearbeitet werden.
+Dies ist die häufigste Methode zur Auswahl spezieller Teile eines Datensatzes. Die vorherige Aufgabe kann auch mit der Funktion `subset()` bearbeitet werden.
 
 
 ```r
@@ -744,6 +717,3 @@ Die vorherige Aufgabe kann auch mit der Funktion `subset()` bearbeitet werden.
 ## Lotus Europa    4 113
 ```
 
-## Fragen
-
-Fragen zum Inhalt dieser Folien oder zum aktuellen Übungsblatt können im [Diskussionsforum](https://www.moodle.tum.de/mod/forum/view.php?id=238250) gestellt werden.

@@ -51,7 +51,7 @@ Vektoren können mit der Funktion `c()` erzeugt werden
 ## [1] 2
 ```
 
-###
+
 
 Neben der Angabe des Typs, kann man Vektoren auch auf einen bestimmten Typ testen.
 
@@ -86,7 +86,7 @@ Neben der Angabe des Typs, kann man Vektoren auch auf einen bestimmten Typ teste
 > #numerischer Inhalt (double und integer)
 ```
 
-###
+
 
 Alle Elemente eines Vektors müssen vom gleichen Typ sein (homogener Inhalt). Werden verschiedene Typen kombiniert, so werden alle Elemente in den "flexibelsten", der beteiligtenTypen, konvertiert: `logical`(am wenigsten flexibel), `integer`, `double`, `character` (am flexibelsten)
 
@@ -115,7 +115,7 @@ Alle Elemente eines Vektors müssen vom gleichen Typ sein (homogener Inhalt). We
 ## [1] 23
 ```
 
-###
+
 
 Die Umwandlung des Typs kann auch ganz explizit vorgenommen werden mit den Funktionen `as.character()`, `as.numeric()`, `as.double()`, `as.integer()` und `as.logical()`.
 
@@ -159,7 +159,7 @@ Logische Operatoren wie `!`(Negation), `&` (und) oder `|` (oder) und Vergleiche 
 ```
 
 
-###
+
 
 Weitere Funktionen zur logischen Abfrage sind `xor(), any()` oder `all()`. Wichtig ist noch die Abfrage nach fehlenden Werte (ausgedrückt durch `NA`). Dies geschieht mit `is.na()`.  
 
@@ -229,7 +229,7 @@ Folgen lassen sich leicht mit `seq()` oder dem Operator `:` erzeugen. Für Wiede
 ```
 
 
-###
+
 
 Der Befehl
 
@@ -275,7 +275,7 @@ Elemente einer Liste verschieden sein kann.
 ```
 `integer_vektor` ist hierbei der Name des ersten Listenelements.
 
-###
+
 
 Listen können - im Gegensatz zu Vektoren - auch rekursive aufgebaut sein. So liefert der Befehl
 
@@ -306,7 +306,7 @@ eine Liste, deren erstes Element eine Liste ist. Wohingegen
 ```
 einen `character` Vektor der Länge 3 liefert und nicht einen Vektor der Länge 2, dessen zweites Element selbst ein Vektor der Länge 2 ist.
 
-###
+
 
 Ob es sich um eine rekursive Liste handelt, kann man sich auch ausgeben lassen.
 
@@ -331,7 +331,7 @@ Ob es sich um eine rekursive Liste handelt, kann man sich auch ausgeben lassen.
 ##  $ : num [1:2] 3 4
 ```
 
-###
+
 
 Kombiniert man mit `c()` Listen und Vektoren, so wird daraus eine Liste.
 
@@ -349,7 +349,7 @@ Kombiniert man mit `c()` Listen und Vektoren, so wird daraus eine Liste.
 ##  $ : num 4
 ```
 
-###
+
 
 Listen sind vom Typ `list`. Dies kann mit `is.list()` überprüft werden. Mit `as.list()` kann ein Objekt in eine Liste konvertiert werden. `unlist()` ist dabei den gleichen Zwängen bzgl. des Typs der Vektorelemente unterworfen wie die Funktion `c()`.
 
@@ -389,7 +389,7 @@ Listen sind vom Typ `list`. Dies kann mit `is.list()` überprüft werden. Mit `a
 ## [1] TRUE
 ```
 
-###
+
 
 Viele weitere Objekt sind Listen. So sind Data Frames (später mehr) und z.B. linear models Objekte (mehr dazu im Kurs Applied Regression MA4401) Listen
 
@@ -435,7 +435,7 @@ Jedem Objekt kann eine beliebige Anzahl von Attributen zugeordnet werden. Diese 
 ```
 
 
-###
+
 
 Attribute, die durch Modifizierung des Vektors nicht verloren gehen, sind:
 
@@ -446,7 +446,7 @@ Attribute, die durch Modifizierung des Vektors nicht verloren gehen, sind:
 Diese Attribute können durch `names(), dim()` und `class()` aufgerufen werden.
 
 
-###
+
 
 Namen können dabei auf drei Arten vergeben werden
 
@@ -507,7 +507,7 @@ der die Altersklasse von drei Probanden beinhaltet.
 
 In der Statistik treten kategorielle Variablen relativ häufig auf.
 
-###
+
 
 Ein Vektor wird zum Faktor, falls er von der Klasse
 
@@ -530,7 +530,7 @@ ist und das Attribut `levels()` gesetzt ist, welches die erlaubten Werte der Fak
 ```
 
 
-###
+
 
 Will man einen "unzulässigen" Wert zu einem Faktor hinzufügen, so wird stattdessen ein fehlender Wert erzeugt
 
@@ -560,7 +560,7 @@ Können die Kategorien eines Faktors geordnet werden, so kann `ordered()` verwen
 
 
 
-###
+
 
 Ein Vorteil eines Faktors gegenüber einem `character` Vektor ist die Tatsache, dass in Operationen (z.B. Häufigkeiten bestimmen), angewendet auf den Faktor, alle Levels einbezogen werden (auch solche, die im Datensatz nicht vorhanden sind).
 
@@ -588,7 +588,7 @@ Ein Vorteil eines Faktors gegenüber einem `character` Vektor ist die Tatsache, 
 ```
 
 
-###
+
 
 Obwohl Faktoren oft wie `character` Vektoren aussehen, handelt es sich dabei um `integer` Vektoren wie man mit
 
@@ -622,7 +622,7 @@ Matrizen werden häufig verwendet um die entsprechenden mathematischen Berechnun
 
 Matrizen und Arrays können mit den Funktionen `matrix(), array()` und `dim()` erzeugt werden.
 
-###
+
 
 
 ```r
@@ -652,7 +652,7 @@ Matrizen und Arrays können mit den Funktionen `matrix(), array()` und `dim()` e
 ```
 
 
-###
+
 
 
 ```r
@@ -677,7 +677,7 @@ Matrizen und Arrays können mit den Funktionen `matrix(), array()` und `dim()` e
 ```
 
 
-###
+
 
 Die Funktionen `length()` und `names()` haben "höherdimensionale Verallgemeinerungen":
 
@@ -685,7 +685,7 @@ Die Funktionen `length()` und `names()` haben "höherdimensionale Verallgemeiner
 - `rownames(), colnames()` für Matrizen und `dimnames()` für Arrays (als Liste)
 
 
-###
+
 
 
 ```r
@@ -714,7 +714,7 @@ Die Funktionen `length()` und `names()` haben "höherdimensionale Verallgemeiner
 ## [1] "S1" "S2" "S3"
 ```
 
-###
+
 
 
 ```r
@@ -744,7 +744,7 @@ Die Funktionen `length()` und `names()` haben "höherdimensionale Verallgemeiner
 ```
 
 
-###
+
 
 Zum Kombinieren von Matrizen können die Funktionen `cbind()` und `rbind()` verwendet werden (sofern die Dimensionen passen).
 
@@ -770,7 +770,7 @@ Zum Kombinieren von Matrizen können die Funktionen `cbind()` und `rbind()` verw
 ##     1  2  3
 ```
 
-###
+
 
 `t()` berechnet die Transponierte einer Matrix und `%*%` berechnet das Matrixproduk zweier Matrizen. `is.matrix()` und `is.array()` überprüfen ob ein Objekt der Klasse `matrix` bzw. `array` vorliegt. Mit `as.matrix()` und `as.array()` kann ein Vektor in eine Matrix bzw. ein Array umgewandelt werden.
 
@@ -801,7 +801,7 @@ Erzeugt wird ein Data Frame mit der Funktion `data.frame()`, die benannte Vektor
 
 *Bemerkung:* Datensätze werden in R üblicherweise als Data Frame gespeichert.
 
-###
+
 
 
 ```r
@@ -817,7 +817,7 @@ Erzeugt wird ein Data Frame mit der Funktion `data.frame()`, die benannte Vektor
 
 `data.frame()` verwandelt Zeichenketten automatisch in Faktoren. Für viele Datensätze ist dies das gewünschte Verhalten.
 
-###
+
 
 Sollen `character` Vektoren nicht automatisch in Faktoren umgewandelt werden, so kann man die Option `stringsAsFactors` verwenden.
 
@@ -835,7 +835,7 @@ Sollen `character` Vektoren nicht automatisch in Faktoren umgewandelt werden, so
 ```
 
 
-###
+
 
 Nachdem Data Frames spezielle Listen sind, sind sie vom Typ
 
@@ -857,7 +857,7 @@ und gehören zur Klasse
 ```
 Man kann mit `is.data.frame()` überprüfen ob es sich bei einem Objekt um ein Data Frame handelt.
 
-###
+
 
 Data Frames können mit `cbind()` und `rbind()` kombiniert werden. 
 
@@ -875,7 +875,7 @@ Data Frames können mit `cbind()` und `rbind()` kombiniert werden.
 
 Für `cbind()` muss die Zeilenanzahl der beteiligten Data Frames übereinstimmen.
 
-###
+
 
 `rbind()` erwartet Data Frames mit gleicher Spaltenzahl und gleichen Spaltennamen.
 
