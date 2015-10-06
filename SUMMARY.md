@@ -4,3 +4,4 @@
 * [Datenstrukturen](Datenstrukturen.md)
 * [Rechnen mit Vektoren und Matrizen](RechnenVektorenMatrizen.md)
 * [Indizierung](Indizierung.md)
+* [Konstrukte und vektorwertiges Programmieren](Konstrukte_VP.md)
