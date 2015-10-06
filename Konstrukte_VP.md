@@ -54,7 +54,7 @@ Mit `if ... else` können sehr komplexe Ausdrücke gewählt werden. Die `bedingu
 ```
 
 ```
-## [1]  0  0  0 16  1  0 16
+## [1]  0  0  9  0  0  0 16
 ```
 
 Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
@@ -68,20 +68,20 @@ Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
 ```
 
 ```
-## [1] 16  9 16  2  1  0  2
+## [1]  4.000000 25.000000  1.732051 16.000000  9.000000  0.000000  2.000000
 ```
 
 ## Schleifen
 
 Schleifen erlauben den wiederholten Aufruf (in größerer Anzahl) einer Reihe von Befehlen. Diese können dabei iterativ voneinander abhängen (durch die verwendeten Inputgrößen).
 
-Schleife bzw. Kontrollwert | Beschreibung |
----------------------------|-------------|
-`repeat{ausdruck}` | wiederhole `ausdruck`|
-`while(bedingung){ausdruck}` | wiederhole `ausdruck`,  solange `bedingung` erfüllt|
-`for(i in M){ausdruck}` | wiederhole `ausdruck` $$\forall i\in M$$ |
-`next` | springe in den nächsten Schritt|
-`break`| beende die Schleife|
+Schleife bzw. Kontrollwert | Beschreibung 
+---------------------------|-------------
+`repeat{ausdruck}` | wiederhole `ausdruck`
+`while(bedingung){ausdruck}` | wiederhole `ausdruck`,  solange `bedingung` erfüllt
+`for(i in M){ausdruck}` | wiederhole `ausdruck` $$\forall i\in M$$ 
+`next` | springe in den nächsten Schritt
+`break`| beende die Schleife
 
 
 Die einfachste Form einer Schleife ist aber `replicate()`.
@@ -240,7 +240,7 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 ```
 ##    user  system elapsed 
-##    0.32    0.00    0.33
+##    0.34    0.00    0.34
 ```
 
 ```r
@@ -250,7 +250,7 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 ```
 ##    user  system elapsed 
-##    0.01    0.00    0.01
+##    0.02    0.00    0.02
 ```
 
 
@@ -334,7 +334,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 
 ```
 ##    user  system elapsed 
-##    0.71    0.02    0.73
+##    0.75    0.04    0.79
 ```
 
 ```r
