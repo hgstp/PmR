@@ -54,7 +54,7 @@ Mit `if ... else` können sehr komplexe Ausdrücke gewählt werden. Die `bedingu
 ```
 
 ```
-## [1] 1 4 1 0 1 0 4
+## [1]  0  0  0 16  1  0 16
 ```
 
 Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
@@ -68,7 +68,7 @@ Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
 ```
 
 ```
-## [1]  1.000000  1.414214  1.000000 16.000000  1.000000 16.000000  1.414214
+## [1] 16  9 16  2  1  0  2
 ```
 
 ## Schleifen
@@ -78,9 +78,8 @@ Schleifen erlauben den wiederholten Aufruf (in größerer Anzahl) einer Reihe vo
 Schleife bzw. Kontrollwert | Beschreibung |
 ---------------------------|-------------|
 `repeat{ausdruck}` | wiederhole `ausdruck`|
-`while(bedingung){ausdruck}` | wiederhole `ausdruck`, |
-|  | solange `bedingung` erfüllt|
-`for(i in M){ausdruck}` | wiederhole `ausdruck` $\forall i\in M$ |
+`while(bedingung){ausdruck}` | wiederhole `ausdruck`,  solange `bedingung` erfüllt|
+`for(i in M){ausdruck}` | wiederhole `ausdruck` $$\forall i\in M$$ |
 `next` | springe in den nächsten Schritt|
 `break`| beende die Schleife|
 
@@ -241,7 +240,7 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 ```
 ##    user  system elapsed 
-##    0.34    0.00    0.34
+##    0.32    0.00    0.33
 ```
 
 ```r
@@ -251,7 +250,7 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 ```
 ##    user  system elapsed 
-##    0.02    0.00    0.01
+##    0.01    0.00    0.01
 ```
 
 
@@ -286,13 +285,11 @@ Funktion | Beschreibung
 `%x%, kronecker()` | Kronecker-Produkt
 `colSums(), rowSums()` | schnelle Spalten-, Zeilensummen
 `colMeans(), rowMeans()` | schnelle Spalten-, Zeilenmittel 
-`apply()` | spalten- und zeilenweise Funktionen auf Matrizen
-|  | und Arrays anwenden
+`apply()` | spalten- und zeilenweise Funktionen auf Matrizen und Arrays anwenden
 `lapply()` | elementweise Funktionen auf Listen anwenden
 `sapply()` | wie `lapply()` mit "vereinfachter" Ausgabe
 `mapply()` | multivariates `sapply()`
-`tapply()`  | Funktionen auf "gruppierbare" Vektoren
-| | anwenden
+`tapply()`  | Funktionen auf "gruppierbare" Vektoren anwenden
 
 
 Die Funktion `apply()` lässt sich z.B. folgendermaßen nutzen zur Berechnung von Mittelwerten der Spalten (oder Zeilen) einer Matrix bzw. zur Mittelung über die jeweiligen Einträge von mehreren Matrizen.
@@ -337,7 +334,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 
 ```
 ##    user  system elapsed 
-##    0.75    0.00    0.77
+##    0.71    0.02    0.73
 ```
 
 ```r
@@ -346,7 +343,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 
 ```
 ##    user  system elapsed 
-##    0.01    0.00    0.02
+##       0       0       0
 ```
 
 
