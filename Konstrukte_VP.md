@@ -1,4 +1,4 @@
-# Konstrukte und Vektorwertiges Programmieren
+# Konstrukte und vektorwertiges Programmieren
 
 
 ## Bedingte Anweisungen
@@ -54,7 +54,7 @@ Mit `if ... else` können sehr komplexe Ausdrücke gewählt werden. Die `bedingu
 ```
 
 ```
-## [1]  0  0  0 16 16  0  0
+## [1] 1 4 1 0 1 0 4
 ```
 
 Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
@@ -68,7 +68,7 @@ Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
 ```
 
 ```
-## [1] 25  9  0  2  2  0  9
+## [1]  1.000000  1.414214  1.000000 16.000000  1.000000 16.000000  1.414214
 ```
 
 ## Schleifen
@@ -241,7 +241,7 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 ```
 ##    user  system elapsed 
-##    0.32    0.00    0.33
+##    0.34    0.00    0.34
 ```
 
 ```r
@@ -251,7 +251,7 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 ```
 ##    user  system elapsed 
-##    0.01    0.00    0.01
+##    0.02    0.00    0.01
 ```
 
 
@@ -337,7 +337,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 
 ```
 ##    user  system elapsed 
-##    0.71    0.00    0.70
+##    0.75    0.00    0.77
 ```
 
 ```r
@@ -346,7 +346,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 
 ```
 ##    user  system elapsed 
-##       0       0       0
+##    0.01    0.00    0.02
 ```
 
 
