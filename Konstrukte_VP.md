@@ -54,7 +54,7 @@ Mit `if ... else` können sehr komplexe Ausdrücke gewählt werden. Die `bedingu
 ```
 
 ```
-## [1] 9 1 4 0 1 0 0
+## [1]  0  0  0 16 16  0  0
 ```
 
 Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
@@ -68,7 +68,7 @@ Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
 ```
 
 ```
-## [1]  1.732051  1.000000  1.414214 16.000000  1.000000  9.000000  9.000000
+## [1] 25  9  0  2  2  0  9
 ```
 
 ## Schleifen
@@ -200,8 +200,6 @@ Es sollte so oft wie möglich vektorwertig programmiert werden.
 *Einschränkung*: Fälle, in denen durch vektorwertiges und/oder rekursives Programmieren ein zu hoher Speicherbedarf entsteht. Hier können Schleifen wieder sinnvoll sein.
 
 
-## Vektorwertig Programmieren und Schleifen
-
 Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 - Objekte zu Beginn initialisieren
@@ -230,9 +228,6 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 ##    0.64    0.00    0.64
 ```
 
-
-## Vektorwertig Programmieren und Schleifen
-
 - Keine unnötigen Fehlerüberprüfungen in Schleifen durchführen
 - Keine Berechnung mehrfach ausführen (sollte man nie)
 
@@ -241,17 +236,16 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 > n <- 10000
 > x <- rnorm(n)
 > a <- numeric(n)
-> system.time( for(i in 1:n) a[i] <- 2 * mean(x) * pi * 
-+                sin(3 * i))
+> system.time(for(i in 1:n) a[i] <- 2 * mean(x) * pi * sin(3 * i))
 ```
 
 ```
 ##    user  system elapsed 
-##    0.28    0.00    0.29
+##    0.32    0.00    0.33
 ```
 
 ```r
-> system.time( {for(i in 1:n) a[i] <- sin(3 * i)
+> system.time({for(i in 1:n) a[i] <- sin(3 * i)
 +              a <- 2 * mean(x) * pi * a})
 ```
 
@@ -261,23 +255,20 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 ```
 
 
-## Vektorwertig Programmieren und Schleifen
-
 Neben Laufzeitvorteilen vektorwertiger Operationen
 
 
 ```r
-> system.time( for(i in 1:n) a[i] <- 2 * mean(x) * pi * 
-+                sin(3 * i))
+> system.time(for(i in 1:n) a[i] <- 2 * mean(x) * pi * sin(3 * i))
 ```
 
 ```
 ##    user  system elapsed 
-##    0.28    0.00    0.28
+##    0.32    0.00    0.31
 ```
 
 ```r
-> system.time( a <- 2 * mean(x) * pi * sin(3 * (1:n)))
+> system.time(a <- 2 * mean(x) * pi * sin(3 * (1:n)))
 ```
 
 ```
@@ -285,10 +276,8 @@ Neben Laufzeitvorteilen vektorwertiger Operationen
 ##       0       0       0
 ```
 
-sind diese oftmals leichter verständlich.
-
-## Vektorwertig Programmieren und Schleifen
-\small
+sind diese oftmals leichter verständlich.  
+In der folgenden Tabelle sind einige Funktionen aufgelistet, die zum vektorwertigen Programmieren verwendet werden können.
 
 Funktion | Beschreibung 
 ---------|--------------
@@ -306,7 +295,7 @@ Funktion | Beschreibung
 | | anwenden
 
 
-## Vektorwertig Programmieren und Schleifen
+Die Funktion `apply()` lässt sich z.B. folgendermaßen nutzen zur Berechnung von Mittelwerten der Spalten (oder Zeilen) einer Matrix bzw. zur Mittelung über die jeweiligen Einträge von mehreren Matrizen.
 
 
 ```r
@@ -337,7 +326,6 @@ Funktion | Beschreibung
 ## [2,]  0.2311143  0.1106028
 ```
 
-## Vektorwertig Programmieren und Schleifen
 
 Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzungen der `apply()` Funktion mit `FUN` gleich `sum` oder `mean`. Diese Abkürzungen können deutlich schneller sein.
 
@@ -349,7 +337,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 
 ```
 ##    user  system elapsed 
-##    0.63    0.00    0.62
+##    0.71    0.00    0.70
 ```
 
 ```r
@@ -361,8 +349,9 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 ##       0       0       0
 ```
 
-## Vektorwertig Programmieren und Schleifen
-\small
+
+Arbeitet man mit Listen, wie z.B.
+
 
 ```r
 > str(lapply)
@@ -391,8 +380,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 ```
 
 
-
-## Vektorwertig Programmieren und Schleifen
+so gibt es spezielle Funktionen aus der "apply Familie", die speziell (aber nicht nur) zur Anwendung auf Listen vorgesehen sind, wie z.B. `lapply()` oder `sapply()`.
 
 
 ```r
@@ -422,9 +410,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 ##     5.843333     3.057333     3.758000     1.199333
 ```
 
-
-## Vektorwertig Programmieren und Schleifen
-
+Will man eine Funktion auf mehrere Listen anwenden, so bietet sich `mapply()` an.
 
 ```r
 > str(mapply) # FUN ist das erste Argument
@@ -442,8 +428,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 ##  [1] 16 16 16 16 16 16 16 16 16 16
 ```
 
-
-## Vektorwertig Programmieren und Schleifen
+Möchte man hingegen eine Funktion auf die einzelnen Elemente einer Gruppe in einer vorgegebenen Gruppierung anwenden, so verwendet man `tapply()`.
 
 
 ```r
@@ -466,6 +451,3 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 Berechnet wurden also die empirischen Mittelwerte von `Petal.Length` in den drei Gruppen `setosa, versicolor` und `virginica`.
 
 
-## Fragen
-
-Fragen zum Inhalt dieser Folien oder zum aktuellen Übungsblatt können im [Diskussionsforum](https://www.moodle.tum.de/mod/forum/view.php?id=238250) gestellt werden.
