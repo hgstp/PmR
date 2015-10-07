@@ -201,8 +201,6 @@ Eine sinnvolle Anwendung dieser Zugriffsmethode liegt in der Kombination mit den
 ```
 
 
-## lapply, sapply
-
 `sapply()` ist eine Version von `lapply()`, die - wenn möglich - eine "vereinfachte" Ausgabe liefert.
 
 
@@ -233,7 +231,7 @@ Eine sinnvolle Anwendung dieser Zugriffsmethode liegt in der Kombination mit den
 
 ## Funktionsargumente
 
-Funktionen besitzen formelle Argumente, denen beim Funktions- aufruf (oder per Default) Werte zugewiesen werden. Beim Aufruf können die Argumente durch ihre Position, den vollen oder teilweisen Namen ausgewählt werden.
+Funktionen besitzen formelle Argumente, denen beim Funktionsaufruf (oder per Default) Werte zugewiesen werden. Beim Aufruf können die Argumente durch ihre Position, den vollen oder teilweisen Namen ausgewählt werden.
 
 
 ```r
@@ -260,10 +258,6 @@ Funktionen besitzen formelle Argumente, denen beim Funktions- aufruf (oder per D
 ```
 ## [1] 3 2 1
 ```
-
-
-## Funktionsargumente
-
 Der folgende Aufruf kann aber nicht funktionieren.
 
 
@@ -275,11 +269,7 @@ Der folgende Aufruf kann aber nicht funktionieren.
 ## Error in f(3, b = 2, 1): Argument 2 passt auf mehrere formale Argumente
 ```
 
-Generell sollte man die zwei, drei wichtigsten Inputgrößen an den Beginn stellen. Alle anderen sollten eher nicht durch die Position ausgewählt werden. Dabei ist der vollständige Namen sicherlich zu bevorzugen.
-
-
-## Funktionsargumente
-
+Generell sollte man die zwei, drei wichtigsten Inputgrößen an den Beginn stellen. Alle anderen sollten eher nicht durch die Position ausgewählt werden. Dabei ist der vollständige Namen sicherlich zu bevorzugen.  
 Funktionsargumenten können Default-Werte zugeordnet werden. Dabei können Default-Werte auch in Abhängigkeit anderer Argumente definiert werden.
 
 
@@ -298,7 +288,7 @@ Funktionsargumenten können Default-Werte zugeordnet werden. Dabei können Defau
 > g <- function(a = 1, b = a * 2) {
 +   c(a, b)
 + }
-> g(a=10)
+> g(a = 10)
 ```
 
 ```
@@ -320,7 +310,16 @@ R wertet Funktionsargumente nur aus, wenn diese tatsächlich benützt werden. Di
 ```
 ## [1] 10
 ```
-Mit `force()` kann man die Auswertung eines Arguments *erzwingen*.
+Die Eingabe
+
+```r
+> stop("x ist nicht 10")
+```
+
+```
+## Error in eval(expr, envir, enclos): x ist nicht 10
+```
+wird also nicht ausgewertet, da sie in `f()` nicht verwendet wird. Mit `force()` kann man die Auswertung eines Arguments *erzwingen*.
 
 ```r
 > f <- function(x) {
@@ -334,62 +333,39 @@ Mit `force()` kann man die Auswertung eines Arguments *erzwingen*.
 ## Error in force(x): x ist nicht 10
 ```
 
-
-## Funktionsargumente: Lazy Evaluation
-
-Benutzt man eine verschachtelte Funktion in Kombination mit `lapply()` oder einer Schleife, so kann die Lazy Evaluation entscheidend sein.
+Betrachten wir noch ein Beispiel zur Lazy Evaluation
 
 
 ```r
-> addiere_x <- function(x){
-+   function(y) x+y
+> f <- function(x, y = z){
++   z <- 2 * x
++   c(x, y)
 + }
-> addiere_zu_1bis10 <- lapply(1:10, addiere_x)
-> addiere_zu_1bis10[[1]](10)
+```
+Intuitiv würde man denken, dass ein Aufruf der Funktion `f()` ohne Angabe von `y` bzw. bei fehlendem Default-Wert `z` zu einer Fehlermeldung führt. Aber entgegen der Erwartung erhält man
+
+```r
+> z
 ```
 
 ```
-## [1] 11
+## Error in eval(expr, envir, enclos): Objekt 'z' nicht gefunden
 ```
 
 ```r
-> addiere_zu_1bis10[[5]](10)
+> f(1)
 ```
 
 ```
-## [1] 15
+## [1] 1 2
 ```
-`x` wird beim ersten Aufruf von `addiere_zu_1bis10()` ausgewertet. Bis dahin ist `x` aber bereits von 1 bis 10 "gelaufen" und hat damit den Wert 10. Somit wird stets 10 zum Input addiert.
-
-## Funktionsargumente: Lazy Evaluation
+Vielmehr wird sogar ein Wert für `y` ausgegeben. Die Lazy Evaluation erlaubt es also Funktionen aufzurufen, deren Argumente zum Zeitpunkt des Aufrufs (noch) nicht vorliegen. In diesem Fall wird `y` erst in der zweiten Zeile des `body` von `f()` verwendet. Zu diesem Zeitpunkt ist dann aber auch der Default-Wert `z` innerhalb des Funktions Environments (siehe [Kapitel 7](Scoping.html)) definiert, sodass `y` ein Wert zugeordnet werden kann.
 
 
-```r
-> addiere_x <- function(x){
-+   force(x)
-+   function(y) x+y
-+ }
-> addiere_zu_1bis10 <- lapply(1:10, addiere_x)
-> addiere_zu_1bis10[[1]](10)
-```
+*Bemerkung:* Seit R 3.2 "erzwingen" die `apply` Funktionen die Auswertung der Argumente der Funktionen, die sie anwenden sollen.
 
-```
-## [1] 11
-```
 
-```r
-> addiere_zu_1bis10[[5]](10)
-```
-
-```
-## [1] 15
-```
-
-Erzwingt man die Auswertung, so erhält man das gewünschte Ergebnis.
-
-## Funktionsargumente: Lazy Evaluation
-
-Bisher schien die Lazy Evaluation eher nachteilig. Sie kann aber auch Vorteile haben. Die Befehle
+Auch in bedingten Anweisung - es handelt sich dabei ja um eine Funktion - wird der Input nur ausgewertet, falls dies nötig ist. So ist es möglich, dass Teile des Inputs Bedingungen enthalten, deren Werte nicht zulässig sind. Da der Typ des Inputs, aber durch voranstehende Bedingungen bereits festgelegt ist, werden diese selbst nie ausgewertet. Ein Beispiel wäre das folgende. Die Befehle
 
 
 ```r
@@ -399,9 +375,9 @@ Bisher schien die Lazy Evaluation eher nachteilig. Sie kann aber auch Vorteile h
 + }
 ```
 
-erzeugen keinen Fehler, obwohl `NULL>0` keinen zulässigen Input für `if` darstellt. Da `!is.null(x)` bereits `FALSE` liefert, wird die zweite Abfrage nicht mehr ausgewertet.
+erzeugen hier keinen Fehler, obwohl `NULL>0` keinen zulässigen Input für `if` darstellt. Da `!is.null(x)` bereits `FALSE` liefert, wird die zweite Abfrage aber gar nicht mehr ausgewertet.
 
-> Hauptvorteil ist aber die Effizienz. Nur notwendige Ausdrücke werden ausgewertet.
+> Hauptvorteil der Lazy Evaulation ist aber die Effizienz. Nur notwendige Ausdrücke werden ausgewertet.
 
 ## Funktionsargumente: `...`
 
@@ -419,6 +395,7 @@ Für eine Funktion kann das formale `...` Drei-Punkte Argument verwendet werden.
 ```
 ## [1] 15
 ```
+Die Funktion `sum()` besitzt das Argument `na.rm`, welches fehlende Werte in `x` entfernt. Ohne nun selbst für `summe_plu2()` ein Argument `na.rm` angegeben zu haben, können wir dieses trotzdem nutzen.
 
 ```r
 > summe_plus2(c(1, 3, NA), na.rm = TRUE)
@@ -427,10 +404,6 @@ Für eine Funktion kann das formale `...` Drei-Punkte Argument verwendet werden.
 ```
 ## [1] 8
 ```
-
-
-## Funktionsargumente: `...`
-
 `...` erhöht also offensichtlich die Flexibilität. Ein Nachteil ist, dass falsch geschriebene Argumente keinen Fehler erzeugen und alle Argumente nach `...` voll ausgeschrieben werden müssen.
 
 
@@ -478,15 +451,5 @@ Wir haben in den Beispielen bereits gesehen wie die Rückgabe funktioniert. Der 
 ```
 ## [1] 10
 ```
-
-## Funktionsrückgabe
-
-Falls bereits zu einem früheren Zeitpunkte eine Rückgabe erfolgen soll (z.B. STOP Kriterium erfüllt) und diese speziell gekennzeichnet werden soll, kann die Funktion `return()` verwendet werden.
-
-
-Funktionen können nur ein Objekt zurückgeben. Soll die Ausgabe einer Funktion aus mehreren Objekten bestehen, so schreibt man diese einfach in eine Liste und gibt die Liste zurück.
-
-## Fragen
-
-Fragen zum Inhalt dieser Folien oder zum aktuellen Übungsblatt können im [Diskussionsforum](https://www.moodle.tum.de/mod/forum/view.php?id=238250) gestellt werden.
+Falls bereits zu einem früheren Zeitpunkte eine Rückgabe erfolgen soll (z.B. STOP Kriterium erfüllt) und diese speziell gekennzeichnet werden soll, kann die Funktion `return()` verwendet werden. Funktionen können nur ein Objekt zurückgeben. Soll die Ausgabe einer Funktion aus mehreren Objekten bestehen, so schreibt man diese einfach in eine Liste und gibt die Liste zurück.
 
