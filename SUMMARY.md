@@ -6,3 +6,4 @@
 * [Indizierung](Indizierung.md)
 * [Konstrukte und vektorwertiges Programmieren](Konstrukte_VP.md)
 * [Funktionen](Funktionen.md)
+* [Environments und Scoping](Scoping.md)
