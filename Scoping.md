@@ -150,7 +150,7 @@ Oftmals werden Funktionen im Globalen Environment definiert. Die Werte freier Va
 
 ```
 ## function(x) x^n
-## <environment: 0x0000000007348810>
+## <environment: 0x000000000740b770>
 ```
 
 Sucht man nach einer Variable und/oder möchte man ihren Wert ausgeben, so kann man mit den Funktionen `exists()` und `get()` arbeiten. Beide verwenden static scoping.
@@ -232,10 +232,10 @@ Wir betrachten als Anwendungsbeispiel die Minimierung der Funktion
 $$
   l_x(\mu,\sigma^2) =-\left(-\frac{n}{2}\log(2\pi\sigma^2)-\frac1{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2\right)\,,
 $$
-wobei $x_i, i=1,\dots,n,$ bekannte Größen sind. Die obigen Funktion ist der negative log-Likelihood einer Normalverteilung mit Parametern $\mu$ und $\sigma^2$, aber das spielt hier keine Rolle.
+wobei $$x_i, i=1,\dots,n,$$ bekannte Größen sind. Die obigen Funktion ist der negative log-Likelihood einer Normalverteilung mit Parametern $$\mu$$ und $$\sigma^2$$, aber das spielt hier keine Rolle.
 
-Optimierungsroutinen wie `optim(), nlm()` oder `optimize()` erwarten als Eingabe eine
-Funktion, deren Argumente die zu optimierenden Parameterwerte sind. Oftmals (wie im obigen Beispiel) hängen Funktionen aber von weiteren Werten ab.
+Optimierungsroutinen wie `optim()`, `nlm()` oder `optimize()` erwarten als Eingabe eine
+Funktion, deren Argumente die zu optimierenden Parameterwerte sind. Oftmals (wie im obigen Beispiel) hängen Funktionen aber von weiteren Werten ab. Um diese zusätzlichen Werte nicht umständlich an die Optimierungsroutine weitergeben zu müssen, kann man durch Anwendung der Scoping Regeln diese Werte gleich im Environment der zu optimierenden Funktion "ablegen". Eine deratige Implementierung der obigen Funktion ist die folgende.
 
 
 
@@ -252,7 +252,7 @@ Funktion, deren Argumente die zu optimierenden Parameterwerte sind. Oftmals (wie
 + }
 ```
 
-Die Funktion ist so geschrieben, dass einer der beiden Parameter fixiert werden kann.
+Der letzte Befehl der Funktion `negLogLik()` ist eine FUnktionsdefinition. Somit ist die Ausgabe der Funktion wieder eine Funktion. `negLogLik()` ist dabei so geschrieben, dass einer der beiden Parameter fixiert werden kann.
 
 
 
@@ -271,8 +271,10 @@ Die Funktion ist so geschrieben, dass einer der beiden Parameter fixiert werden 
 ##     l_x <- -( -length(data)/2 * log(2 * pi * sigma_2 ) - sum((data-mu)^2) / (2*sigma_2))
 ##     l_x
 ##   }
-## <environment: 0x0000000006012d78>
+## <environment: 0x000000000b57c4d0>
 ```
+
+Schaut man sich nun das Environment der Funktion `l_x()` an
 
 ```r
 > ls(environment(l_x))
@@ -281,9 +283,9 @@ Die Funktion ist so geschrieben, dass einer der beiden Parameter fixiert werden 
 ```
 ## [1] "data"  "fix"   "param"
 ```
+so findet man dort die Objekte data, fix, param. Alle drei Objekte sind innerhalb der Funktion `negLogLik()` bekannt und damit innerhalb des Environments in dem `l_x()` definiert wurde.
 
-
-
+Optimieren wir nun die Funktion `l_x()` bzgl. beider Parameter, so erhält man
 
 ```r
 > optim(par = c(0, 1), fn = l_x)$par
@@ -292,7 +294,10 @@ Die Funktion ist so geschrieben, dass einer der beiden Parameter fixiert werden 
 ```
 ## [1] 0.9465684 3.9744817
 ```
-Fixieren wir nun $$\mu$$ gleich 1, so erhält man
+Man beachte, dass für den Datensatz `x` der Parameter $$\sigma^2$$ gleich 4 gewählt wurde. 
+
+Betrachten wir nun einen Parameter (z.B. $$\mu$$) als bekannt, so können wir diesen in einer erneuten Definition von `l_x()` fixieren (z.B. gleich 1 setzen). Dies ermöglicht uns nun die Funktion nur noch
+bzgl. eines Paramters zu optimieren.
 
 
 ```r
@@ -308,17 +313,16 @@ Fixieren wir nun $$\mu$$ gleich 1, so erhält man
 *Bemerkung:* Wir verwenden `optimize()` anstatt `optim()`, da letztere nicht für eindimensionale Optimierung geeignet ist.
 
 
-Durch Übergabe aller weiteren Größen im Environment
+Durch Übergabe aller weiteren Größen (data, fix, param) im Environment
 
 ```r
-> ls(environment(l_x))
+> environment(l_x)
 ```
 
 ```
-## [1] "data"  "fix"   "param"
+## <environment: 0x000000000b110b48>
 ```
-konnte die Funktion `l_x()` nur als Funktion der unbekannten Parameter im
-`.GlobalEnv` definiert werden. 
+konnte also die Funktion `l_x()` im `.GlobalEnv` nur als Funktion der unbekannten Parameter  definiert werden. 
 
 
 ```r
@@ -330,5 +334,5 @@ konnte die Funktion `l_x()` nur als Funktion der unbekannten Parameter im
 ```
 
 
-Es muss also keine Liste weiterer Argumente der Optimierungsfunktion übergeben werden.
+Es musste also keine Liste weiterer Argumente der Optimierungsfunktion übergeben werden um die Likelihoodfunktion vollständig zu spezifizieren.
 
