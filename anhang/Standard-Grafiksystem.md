@@ -26,7 +26,7 @@ Devices sind wie Papier auf das gemalt wird. Einmal erzeugte Elemente lassen sic
 > plot(x, y)
 ```
 
-![](Standard-Grafiksystem_files/figure-html/fig1-1.png) 
+<img src="Standard-Grafiksystem_files/figure-html/fig1-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 Für dieses Beispiel scheint uns die Standardausgabe (Kreissymbole) nicht passend zu sein. Wir würden viel lieber die Sinusfunktion als durchgezogene Linie sehen. Daher müssen wir den `type` ändern.
 
@@ -36,7 +36,7 @@ Für dieses Beispiel scheint uns die Standardausgabe (Kreissymbole) nicht passen
 > plot(x, y, type = "l")
 ```
 
-![](Standard-Grafiksystem_files/figure-html/fig2-1.png) 
+<img src="Standard-Grafiksystem_files/figure-html/fig2-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 
 ## High-level Grafikfunktionen
@@ -67,7 +67,7 @@ Laut Tabelle eignet sich `curve()` zum plotten von Funktionen. Daher erzeugen wi
 > curve(sin(x), from = 0, to = 8)
 ```
 
-![](Standard-Grafiksystem_files/figure-html/fig2a-1.png) 
+<img src="Standard-Grafiksystem_files/figure-html/fig2a-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 
 ### Beispiele anhand der iris Daten
@@ -101,7 +101,7 @@ Zuerst verwenden wir `plot()` mithilfe der Formelnotation `~`, erzeugen ein Hist
 > boxplot(iris$Sepal.Length ~ iris$Species)
 ```
 
-![](Standard-Grafiksystem_files/figure-html/fig3-1.png) 
+<img src="Standard-Grafiksystem_files/figure-html/fig3-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 
 
@@ -158,7 +158,7 @@ green3 steht also an der dritten Stelle der Farbpalette. Daher liefen die beiden
 > plot(x, col = "green3")
 ```
 
-![](Standard-Grafiksystem_files/figure-html/fig4-1.png) 
+<img src="Standard-Grafiksystem_files/figure-html/fig4-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 
 
@@ -197,7 +197,7 @@ wir in der Lage eine Legende anzugeben.
 +        pch = c(21, 21, 21), col = c(14, "lightgreen", "blue"))
 ```
 
-![](Standard-Grafiksystem_files/figure-html/fig5-1.png) 
+<img src="Standard-Grafiksystem_files/figure-html/fig5-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 
 
