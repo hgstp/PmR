@@ -41,7 +41,7 @@ Für dieses Beispiel scheint uns die Standardausgabe (Kreissymbole) nicht passen
 
 ## High-level Grafikfunktionen
 
-Bei Grafikfunktionen unterscheidet man zwischen High- und [Low-level](Standard-Grafiksystem.html/#Low-level-Grafikfunktionen) Grafikfunktionen. Erstere sind im Unterschied zu Letzteren in der Lage ein neues Grafikfenster zu öffnen. Mithilfe von Low-level Grafikfunktionen kann man nur neu Grafikelemente in ein bereits geöffnetes Grafikfenster hinzufügen. Die wichtigsten High-level Grafikfunktionen sind in nachfolgender Tabelle zusammengefasst.
+Bei Grafikfunktionen unterscheidet man zwischen High- und [Low-level](Standard-Grafiksystem.html/#low-level-grafikfunktionen) Grafikfunktionen. Erstere sind im Unterschied zu Letzteren in der Lage ein neues Grafikfenster zu öffnen. Mithilfe von Low-level Grafikfunktionen kann man nur neu Grafikelemente in ein bereits geöffnetes Grafikfenster hinzufügen. Die wichtigsten High-level Grafikfunktionen sind in nachfolgender Tabelle zusammengefasst.
 
 Funktion | Beschreibung
 ---------|--------------
