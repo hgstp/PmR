@@ -1,0 +1,1 @@
+Dieser Anhang enthält Grundlagen zum Daten Input/Output und Standard-Grafiksystem, mit denen jeder R Anwender vertraut sein sollte.
