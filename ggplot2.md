@@ -63,7 +63,7 @@ Im Vergleich zur Standardgrafik (siehe [Anhang](anhang/standard-grafiksystem.htm
 > aufwendiger bei **einfachen** Grafiken, weniger aufwendig bei **komplexeren** Grafiken und
 besitzt keine Methoden (Daten sollten von Klasse `data.frame` sein)
 
-Eine einfache Grafik, wie das Histogramm eines Datenvektors, erzeugt man im standard-Grafiksytem mit folgendem Befehl
+Eine einfache Grafik, wie das Histogramm eines Datenvektors, erzeugt man im Standard-Grafiksystem mit folgendem Befehl
 
 
 ```r
@@ -226,7 +226,7 @@ Es ist oftmals auch einfacher die entsprechende `geom_xx()` Funktion passend zu 
 
 
 Mithilfe der `stat_xx()` Funktionen können aber auch neue Variablen berechnet werden, die dann grafisch dargestellt werden.  
-So könnte man beispielweise bei einem Balkendiagramm statt der absoluten die relativen 
+So könnte man beispielsweise bei einem Balkendiagramm statt der absoluten die relativen 
 Häufigkeiten darstellen ohne diese vorher zu berechnen. Dazu setzt man in `aes()` die y Koordinate auf die berechnete Größe `..count../sum(..count..)`. Wählt man für `fill` den gleichen Wert, so werden die Balken auch noch farblich entsprechend angepasst.
 
 
@@ -385,7 +385,7 @@ Will man gewisse Einstellung öfter verwenden, so kann man diese auch in einem `
 <img src="ggplot2_files/figure-html/fig23-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 
-## Literatur
+## Literatur zu ggplot2
 
 Dieser Abschnitt kann nur einen kleinen Einblick in das Paket `ggplot2` geben. Eine ausführliche Dokumentation findet man im Buch 
 
