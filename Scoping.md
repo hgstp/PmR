@@ -2,7 +2,7 @@
 
 
 
-Wir haben nun bereits gelernt wie man neue Objekte erzeugt. Uns ist der Workspace ein Begriff, d.h. uns ist klar, dass wir darin neu erzeugte Objekte finden. Ebenso haben wir gesehen, dass es - sei es in den Basispaketen oder in geladenen Zusatzpaketen -  eine Vielzahlt von Funktionsobjekten gibt. Daher stellt sich eine berechtigte Frage. *Wie weiß nun R welchen Wert es welchem Symbol zuordnen soll?* 
+Wir haben nun bereits gelernt wie man neue Objekte erzeugt. Uns ist der Workspace ein Begriff, d.h. uns ist klar, dass wir darin neu erzeugte Objekte finden. Ebenso haben wir gesehen, dass es - sei es in den Basispaketen oder in geladenen Zusatzpaketen -  eine Vielzahl von Funktionsobjekten gibt. Daher stellt sich eine berechtigte Frage. *Wie weiß nun R welchen Wert es welchem Symbol zuordnen soll?* 
 
 
 ```r
@@ -150,7 +150,7 @@ Oftmals werden Funktionen im Globalen Environment definiert. Die Werte freier Va
 
 ```
 ## function(x) x^n
-## <environment: 0x000000000740b770>
+## <environment: 0x000000000852d9f8>
 ```
 
 Sucht man nach einer Variable und/oder möchte man ihren Wert ausgeben, so kann man mit den Funktionen `exists()` und `get()` arbeiten. Beide verwenden static scoping.
@@ -235,7 +235,7 @@ $$
 wobei $$x_i, i=1,\dots,n,$$ bekannte Größen sind. Die obigen Funktion ist der negative log-Likelihood einer Normalverteilung mit Parametern $$\mu$$ und $$\sigma^2$$, aber das spielt hier keine Rolle.
 
 Optimierungsroutinen wie `optim()`, `nlm()` oder `optimize()` erwarten als Eingabe eine
-Funktion, deren Argumente die zu optimierenden Parameterwerte sind. Oftmals (wie im obigen Beispiel) hängen Funktionen aber von weiteren Werten ab. Um diese zusätzlichen Werte nicht umständlich an die Optimierungsroutine weitergeben zu müssen, kann man durch Anwendung der Scoping Regeln diese Werte gleich im Environment der zu optimierenden Funktion "ablegen". Eine deratige Implementierung der obigen Funktion ist die folgende.
+Funktion, deren Argumente die zu optimierenden Parameterwerte sind. Oftmals (wie im obigen Beispiel) hängen Funktionen aber von weiteren Werten ab. Um diese zusätzlichen Werte nicht umständlich an die Optimierungsroutine weitergeben zu müssen, kann man durch Anwendung der Scoping Regeln diese Werte gleich im Environment der zu optimierenden Funktion "ablegen". Eine derartige Implementierung der obigen Funktion ist die folgende.
 
 
 
@@ -252,7 +252,7 @@ Funktion, deren Argumente die zu optimierenden Parameterwerte sind. Oftmals (wie
 + }
 ```
 
-Der letzte Befehl der Funktion `negLogLik()` ist eine FUnktionsdefinition. Somit ist die Ausgabe der Funktion wieder eine Funktion. `negLogLik()` ist dabei so geschrieben, dass einer der beiden Parameter fixiert werden kann.
+Der letzte Befehl der Funktion `negLogLik()` ist eine Funktionsdefinition. Somit ist die Ausgabe der Funktion wieder eine Funktion. `negLogLik()` ist dabei so geschrieben, dass einer der beiden Parameter fixiert werden kann.
 
 
 
@@ -271,7 +271,7 @@ Der letzte Befehl der Funktion `negLogLik()` ist eine FUnktionsdefinition. Somit
 ##     l_x <- -( -length(data)/2 * log(2 * pi * sigma_2 ) - sum((data-mu)^2) / (2*sigma_2))
 ##     l_x
 ##   }
-## <environment: 0x000000000b57c4d0>
+## <environment: 0x000000000b5701f0>
 ```
 
 Schaut man sich nun das Environment der Funktion `l_x()` an
@@ -297,7 +297,7 @@ Optimieren wir nun die Funktion `l_x()` bzgl. beider Parameter, so erhält man
 Man beachte, dass für den Datensatz `x` der Parameter $$\sigma^2$$ gleich 4 gewählt wurde. 
 
 Betrachten wir nun einen Parameter (z.B. $$\mu$$) als bekannt, so können wir diesen in einer erneuten Definition von `l_x()` fixieren (z.B. gleich 1 setzen). Dies ermöglicht uns nun die Funktion nur noch
-bzgl. eines Paramters zu optimieren.
+bzgl. eines Parameters zu optimieren.
 
 
 ```r
@@ -320,7 +320,7 @@ Durch Übergabe aller weiteren Größen (data, fix, param) im Environment
 ```
 
 ```
-## <environment: 0x000000000b110b48>
+## <environment: 0x000000000ab4a368>
 ```
 konnte also die Funktion `l_x()` im `.GlobalEnv` nur als Funktion der unbekannten Parameter  definiert werden. 
 

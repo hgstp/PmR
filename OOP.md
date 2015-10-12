@@ -51,7 +51,7 @@ In **S3** werden Methoden den jeweiligen Funktionen zugeordnet. Diese werden dan
 ```
 ## function (x, ...) 
 ## UseMethod("mean")
-## <bytecode: 0x0000000007466480>
+## <bytecode: 0x000000000692ba20>
 ## <environment: namespace:base>
 ```
 
@@ -134,7 +134,7 @@ Die Methoden von `mean()` sind alle sichtbar. `head()` hat hingegen verborgene M
 ##     else min(n, length(x))
 ##     x[seq_len(n)]
 ## }
-## <bytecode: 0x000000000725c4a0>
+## <bytecode: 0x0000000007a8a618>
 ## <environment: namespace:utils>
 ```
 
@@ -216,7 +216,7 @@ Für viele **S3** Klassen existiert eine Funktion zur Konstruktion von Objekten 
 ## [1] "m_klasse"
 ```
 
-## S3: Neue Methoden und generische Funktionen
+## Neue Methoden und generische Funktionen
 
 Zur Definition einer neuen generischen Funktion benutzt man `UseMethod()`.
 
@@ -225,11 +225,22 @@ Zur Definition einer neuen generischen Funktion benutzt man `UseMethod()`.
 > m_generic <- function(x) UseMethod("m_generic")
 ```
 
-Eine generische Funktion ist nutzlos ohne (mindestens) eine Methode.
+Eine generische Funktion ist nutzlos ohne (mindestens) eine Methode. Daher definieren wir nun für die Klasse `m_klasse` eine Methode zur generischen Funktion `m_generice()`. 
 
 
 ```r
 > m_generic.m_klasse <- function(x) x[1]
+> ftype(m_generic.m_klasse)
+```
+
+```
+## [1] "s3"     "method"
+```
+
+Die Methode `m_generic.m_klasse()` gibt also für ein Objekt der Klasse `m_klasse` das erste Listenelement zurück.
+
+
+```r
 > m_generic(m_obj)
 ```
 
@@ -237,8 +248,6 @@ Eine generische Funktion ist nutzlos ohne (mindestens) eine Methode.
 ## [[1]]
 ## [1] 1 2 3
 ```
-
-## S3: Neue Methoden und generische Funktionen
 
 Ebenso kann man eine neue Methode für eine bereits existierende generische Funktion definieren.
 
@@ -253,7 +262,7 @@ Ebenso kann man eine neue Methode für eine bereits existierende generische Funk
 ```
 
 
-## S3: Methodenauswahl
+## Methodenauswahl
 
 `UseMethod()` erzeugt einen Vektor von Funktionsnamen vom Typ
 
@@ -264,13 +273,35 @@ Ebenso kann man eine neue Methode für eine bereits existierende generische Funk
 ```
 ## [1] "generic.klasse"  "generic.default"
 ```
-und sucht nach den entsprechenden Funktionen.
+und sucht nach den entsprechenden Funktionen. Für unsere generische Funktion `m_generic()` liegen bisher ja folgende Methoden vor.
 
 
 ```r
-> m_generic.default <- function(x) "unbekannte Klasse"
-> m_generic(structure(list(1, 2), 
-+                     class = c("d_klasse", "m_klasse")))
+> methods(m_generic)
+```
+
+```
+## [1] m_generic.m_klasse
+## see '?methods' for accessing help and source code
+```
+
+Es ist also nur eine Methode vorgesehen für die Klasse `m_klasse`. Daher ist klar, dass der Befehl
+
+
+```r
+> m_generic(1:5)
+```
+
+```
+## Error in UseMethod("m_generic"): nicht anwendbare Methode für 'm_generic' auf Objekt der Klasse "c('integer', 'numeric')" angewendet
+```
+
+zu einem Fehler führt. Es sollte daher immer eine Default Methode angegeben werden. 
+
+
+```r
+> m_generic.default <- function(x) "m_generic nicht definiert fuer diese Klasse"
+> m_generic(structure(list(1, 2), class = c("d_klasse", "m_klasse")))
 ```
 
 ```
@@ -283,11 +314,11 @@ und sucht nach den entsprechenden Funktionen.
 ```
 
 ```
-## [1] "unbekannte Klasse"
+## [1] "m_generic nicht definiert fuer diese Klasse"
 ```
 
 
-## S3: wichtige Funktionen
+Die nachfolgende Tabelle enthät eine Übersicht wichtiger Funktionen in Bezug auf **S3** Objekte.
 
 Funktion | Beschreibung
 ---------|-------------
@@ -295,8 +326,7 @@ Funktion | Beschreibung
 `attr()` | Erfragen und Setzen konkreter Attribute
 `class()` | Erfragen und Setzen des Klassen-Attributs
 `inherits()` |  Von einer anderen Klasse Merkmale erben
-`methods()` |  Alle zu einer generischen Funktion gehörenden 
-| | Methoden
+`methods()` |  Alle zu einer generischen Funktion gehörenden Methoden
 `NextMethod()` | Verweis auf die nächste in Frage kommende Methode
 `UseMethod()` |  Verweis von der generischen Funktion an die Methode
 
@@ -311,8 +341,4 @@ Das **S4** System arbeitet ähnlich wie **S3**. Es ist aber deutlich formeller g
 Weitere Informationen zu **S4** findet man in [*Advanced R: S4*](http://adv-r.had.co.nz/OO-essentials.html#s4) und den dort angegebenen Referenzen.
 
 
-
-## Fragen
-
-Fragen zum Inhalt dieser Folien oder zum aktuellen Übungsblatt können im [Diskussionsforum](https://www.moodle.tum.de/mod/forum/view.php?id=238250) gestellt werden.
 

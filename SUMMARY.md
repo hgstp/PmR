@@ -7,6 +7,7 @@
 * [Konstrukte und vektorwertiges Programmieren](Konstrukte_VP.md)
 * [Funktionen](Funktionen.md)
 * [Environments und Scoping](Scoping.md)
+* [Objektorientiertes Programmieren](OOP.md)
 * [Anhang](anhang/anhang.md)
  * [Daten IO](anhang/DatenIO.md)
  * [Standard-Grafiksystem](anhang/Standard-Grafiksystem.md)
