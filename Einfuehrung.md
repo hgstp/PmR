@@ -83,7 +83,7 @@ Es existieren weitere grafische Benutzeroberflächen wie z.B. der RCommander, Ti
 
 ## Literatur
 
-Der Kurs basiert auf den beiden Quellen
+Der Kurs sowie diese Unterlagen basieren auf den beiden Quellen
 
 - Ligges, U. (2008). [Programmieren mit R](http://link.springer.com/book/10.1007%2F978-3-540-79998-6), Springer. 
 - Wickham, H. (2014). [Advanced R](https://www.crcpress.com/Advanced-R/Wickham/9781466586963), Chapman and Hall/CRC.
