@@ -6,6 +6,7 @@
 * [Indizierung](Indizierung.md)
 * [Konstrukte und vektorwertiges Programmieren](Konstrukte_VP.md)
 * [Funktionen](Funktionen.md)
+* [ggplot2](ggplot2.md)
 * [Environments und Scoping](Scoping.md)
 * [Objektorientiertes Programmieren](OOP.md)
 * [Rcpp](Rcpp.md)
