@@ -40,7 +40,7 @@ Die Funktion `add()` können wir nun direkt in R aufrufen.
 
 ```
 ## function (x, y, z) 
-## .Primitive(".Call")(<pointer: 0x0000000005da1770>, x, y, z)
+## .Primitive(".Call")(<pointer: 0x0000000005d41770>, x, y, z)
 ```
 Wir sehen, dass `add()` eine "Primitive" Funktion ist, die über `.Call()` (siehe `help(.Call)`) kompilierten (in diesem Fall C++) Code aufruft.
 
@@ -67,7 +67,7 @@ Wir wollen und können an dieser Stelle keine eingehende Einführung in C++ gebe
 
 ## Beispiele: R vs. C++
 
-Wir betrachten nun eine Reihe von Beispielen und geben neben der C++ Implementation oftmals auch eine reine R Implementation an. Wir starten mit einer Funktion, die das Vorzeichen des Eintrags eines Vektors der Länge 1 ausgiebt. 
+Wir betrachten nun eine Reihe von Beispielen und geben neben der C++ Implementation oftmals auch eine reine R Implementation an. Wir starten mit einer Funktion, die das Vorzeichen des Eintrags eines Vektors der Länge 1 ausgibt. 
 
 
 ```r
@@ -149,12 +149,12 @@ Das Beispiel `sum_R()` würden wir nicht ernsthaft verwenden. Trotzdem eignet es
 
 ```
 ## Unit: nanoseconds
-##      expr    min       lq      mean median       uq     max neval cld
-##    sum(x)    760   1140.0   1418.04   1141   1521.0    4562   100  a 
-##  sum_R(x) 469469 512424.5 629689.55 585031 635779.5 1413730   100   b
-##  sum_C(x)   1520   2281.0   4010.65   3041   4371.5   30411   100  a
+##      expr    min     lq      mean   median       uq     max neval cld
+##    sum(x)    760    761   1372.43   1140.5   1330.5    8743   100  a 
+##  sum_R(x) 435638 492278 621014.90 560132.5 644522.5 1459727   100   b
+##  sum_C(x)   1520   1901   3755.87   2661.0   3802.0   38013   100  a
 ```
-Wir erkennen eine deutlich längere Laufzeit von `sum_R()` im Vergleich zu `sum_C()`. Über 100 Auswertungen ist die Laufzeit von `sum_R()` im Mittel um den Faktor 192.3811246 länger als die von `sum_C()`. Wir erkennen aber auch, dass die Standardfunktion `sum()` nochmal um ca. die Hälfte schneller ist.
+Wir erkennen eine deutlich längere Laufzeit von `sum_R()` im Vergleich zu `sum_C()`. Über 100 Auswertungen ist die Laufzeit von `sum_R()` im Mittel um den Faktor 210.4969936 länger als die von `sum_C()`. Wir erkennen aber auch, dass die Standardfunktion `sum()` nochmal um ca. die Hälfte schneller ist.
 
 
 Analog zu den verschiedenen Vektortypen existieren die Typen: `NumericMatrix`, `IntegerMatrix`, `CharacterMatrix` und `LogicalMatrix`. Für eine `NumericMatrix` wollen wir nun deren Zeilensumme berechnen, also eine Alternative zu `rowSums()` schreiben. 
@@ -254,9 +254,9 @@ ein. Vergleichen wir nun wieder mit `microbenchmark()` die Performance der beide
 
 ```
 ## Unit: microseconds
-##       expr     min      lq     mean  median      uq     max neval cld
-##    mean(x) 204.894 205.654 220.6317 206.985 234.735 289.664   100   b
-##  mean_C(x) 101.116 101.877 106.6704 102.638 107.199 168.400   100  a
+##       expr     min      lq     mean  median       uq     max neval cld
+##    mean(x) 204.894 205.654 215.2680 206.794 216.6780 399.524   100   b
+##  mean_C(x) 101.496 101.877 105.6174 102.637 105.6785 175.243   100  a
 ```
 
 so erkennen wir deutliche Laufzeitvorteile von `mean_C()`. Diese werden aber durch numerische Ungenauigkeiten im Vergleich zu `mean()` erkauft.
@@ -433,17 +433,12 @@ Der Vorteil der C++ Variante ist, dass `any()` (wie auch `all()`) lazy agieren, 
 ```
 
 ```
-## Unit: microseconds
-##          expr     min       lq      mean   median       uq      max neval
-##  any_na_R(x0) 314.754 352.5770 578.23042 362.2710 453.8835 3670.223   100
-##  any_na_C(x0) 525.729 572.4860 671.72514 576.0980 653.0755 1073.507   100
-##  any_na_R(x1) 222.001 256.4025 379.66967 267.2365 347.6355 2471.652   100
-##  any_na_C(x1)   1.140   1.9010   4.39074   3.0420   6.2720   15.206   100
-##  cld
-##    c
-##    c
-##   b 
-##  a
+## Unit: nanoseconds
+##          expr    min     lq      mean   median       uq     max neval cld
+##  any_na_R(x0) 279400 348206 519411.81 353148.0 372344.5 3502963   100   c
+##  any_na_C(x0) 520788 570396 606448.05 574007.0 581230.0 1072747   100   c
+##  any_na_R(x1) 160037 248610 336915.69 256972.5 267427.0 1837963   100  b 
+##  any_na_C(x1)    760   1521   3333.91   2281.0   3801.5   23948   100 a
 ```
 
 Auf `x0` arbeiten beide Implementierungen ungefähr gleich lange. Die R Version ist sogar etwas schneller. Für `x1` hingegen ist `any_na_c()` deutlich schneller, da die Auswertung bereits nach dem ersten Eintrag abgebrochen wird. Danach steht ja auch schon fest, dass der Vektor fehlende Werte enthält.
@@ -496,15 +491,15 @@ Im Gegensatz zur R Implementierung ist der rekursive Funktionsaufruf hier wenige
 
 ```
 ## Unit: microseconds
-##             expr       min        lq       mean    median        uq
-##  fibonacci_R(20) 34942.200 38658.231 44076.2481 42899.990 48334.429
-##  fibonacci_C(20)   451.983   501.401   606.0679   512.995   728.723
+##             expr       min       lq       mean    median       uq
+##  fibonacci_R(20) 34777.601 38434.52 42032.3080 41088.446 43381.81
+##  fibonacci_C(20)   462.246   499.12   545.6299   509.004   526.49
 ##        max neval cld
-##  85034.384   100   b
-##   1526.251   100  a
+##  83543.105   100   b
+##    959.466   100  a
 ```
 
-Die R Implementierung ist um den Faktor 83.6265266 langsamer. Der Wechsel zu C++ hat also einen deutlichen Laufzeitvorteil gebracht. Allerdings sollte man bei Algorithmen, die exponentiell wachsen, lieber auch nach alternativen Implementierungen suchen, wie z.B. 
+Die R Implementierung ist um den Faktor 80.7232281 langsamer. Der Wechsel zu C++ hat also einen deutlichen Laufzeitvorteil gebracht. Allerdings sollte man bei Algorithmen, die exponentiell wachsen, lieber auch nach alternativen Implementierungen suchen, wie z.B. 
 
 
 ```r
@@ -541,9 +536,9 @@ Die R Implementierung ist um den Faktor 83.6265266 langsamer. Der Wechsel zu C++
 
 ```
 ## Unit: microseconds
-##                  expr     min       lq      mean  median       uq      max
-##  fibonacci_R_iter(20)  11.784  21.2880  30.71524  22.428  28.7005   92.373
-##       fibonacci_C(20) 498.740 522.1185 695.32403 766.166 780.9915 1320.597
+##                  expr     min       lq      mean   median      uq     max
+##  fibonacci_R_iter(20)  10.644  12.1645  22.56126  20.9080  25.469 100.737
+##       fibonacci_C(20) 453.124 499.1200 605.65740 504.6325 763.506 822.237
 ##  neval cld
 ##    100  a 
 ##    100   b
