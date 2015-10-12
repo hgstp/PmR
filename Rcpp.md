@@ -40,7 +40,7 @@ Die Funktion `add()` können wir nun direkt in R aufrufen.
 
 ```
 ## function (x, y, z) 
-## .Primitive(".Call")(<pointer: 0x0000000005c21770>, x, y, z)
+## .Primitive(".Call")(<pointer: 0x0000000005da1770>, x, y, z)
 ```
 Wir sehen, dass `add()` eine "Primitive" Funktion ist, die über `.Call()` (siehe `help(.Call)`) kompilierten (in diesem Fall C++) Code aufruft.
 
@@ -149,12 +149,12 @@ Das Beispiel `sum_R()` würden wir nicht ernsthaft verwenden. Trotzdem eignet es
 
 ```
 ## Unit: nanoseconds
-##      expr    min       lq      mean median     uq     max neval cld
-##    sum(x)    760   1140.0   1916.06   1141   1521   12164   100  a 
-##  sum_R(x) 531051 602327.5 710750.03 664670 740127 1952764   100   b
-##  sum_C(x)   1520   2281.0   4136.01   3041   4562   38014   100  a
+##      expr    min       lq      mean median       uq     max neval cld
+##    sum(x)    760   1140.0   1418.04   1141   1521.0    4562   100  a 
+##  sum_R(x) 469469 512424.5 629689.55 585031 635779.5 1413730   100   b
+##  sum_C(x)   1520   2281.0   4010.65   3041   4371.5   30411   100  a
 ```
-Wir erkennen eine deutlich längere Laufzeit von `sum_R()` im Vergleich zu `sum_C()`. Über 100 Auswertungen ist die Laufzeit von `sum_R()` im Mittel um den Faktor 218.5695495 länger als die von `sum_C()`. Wir erkennen aber auch, dass die Standardfunktion `sum()` nochmal um ca. die Hälfte schneller ist.
+Wir erkennen eine deutlich längere Laufzeit von `sum_R()` im Vergleich zu `sum_C()`. Über 100 Auswertungen ist die Laufzeit von `sum_R()` im Mittel um den Faktor 192.3811246 länger als die von `sum_C()`. Wir erkennen aber auch, dass die Standardfunktion `sum()` nochmal um ca. die Hälfte schneller ist.
 
 
 Analog zu den verschiedenen Vektortypen existieren die Typen: `NumericMatrix`, `IntegerMatrix`, `CharacterMatrix` und `LogicalMatrix`. Für eine `NumericMatrix` wollen wir nun deren Zeilensumme berechnen, also eine Alternative zu `rowSums()` schreiben. 
@@ -208,14 +208,14 @@ Wir sehen, dass `rowSums_C()` die gleiche Ausgabe wie `rowSums()` liefert. Wenn 
 
 Bisher wurde der C++ Code über `cppFunction()` verarbeitet. Umfangreicheren Code will man aber eher in eigene `.cpp` Dateien schreiben. Diese können dann mit `sourceCpp()` eingelesen werden. Der Kopf dieser Dateien sollte folgendermaßen aussehen
 
-```{ engine='Rcpp'}
+```
 #include <Rcpp.h>
 using namespace Rcpp;
 ```
 
 Wird in der Datei eine Funktion definiert, die nach R exportiert werden soll, so muss
 
-```{ engine='Rcpp'}
+```
 // [[Rcpp::export]]
 ```
 hinzugefügt werden. Als Beispiel schreiben wir nun eine Funktion `mean_C()`. Der nachfolgende Code
@@ -254,9 +254,9 @@ ein. Vergleichen wir nun wieder mit `microbenchmark()` die Performance der beide
 
 ```
 ## Unit: microseconds
-##       expr     min       lq     mean   median       uq     max neval cld
-##    mean(x) 237.966 244.9985 260.0671 249.9405 263.0555 370.634   100   b
-##  mean_C(x) 106.818 116.7025 122.6133 121.2640 122.4040 222.761   100  a
+##       expr     min      lq     mean  median      uq     max neval cld
+##    mean(x) 204.894 205.654 220.6317 206.985 234.735 289.664   100   b
+##  mean_C(x) 101.116 101.877 106.6704 102.638 107.199 168.400   100  a
 ```
 
 so erkennen wir deutliche Laufzeitvorteile von `mean_C()`. Diese werden aber durch numerische Ungenauigkeiten im Vergleich zu `mean()` erkauft.
@@ -434,11 +434,11 @@ Der Vorteil der C++ Variante ist, dass `any()` (wie auch `all()`) lazy agieren, 
 
 ```
 ## Unit: microseconds
-##          expr     min       lq     mean   median       uq      max neval
-##  any_na_R(x0) 409.407 422.5225 657.4396 431.2655 538.4645 4221.422   100
-##  any_na_C(x0) 658.398 683.4870 773.3662 688.8085 744.4990 1291.326   100
-##  any_na_R(x1) 287.764 303.5395 421.4581 311.7120 322.9260 2438.580   100
-##  any_na_C(x1)   1.140   1.5210   4.8241   2.6610   6.2730   20.908   100
+##          expr     min       lq      mean   median       uq      max neval
+##  any_na_R(x0) 314.754 352.5770 578.23042 362.2710 453.8835 3670.223   100
+##  any_na_C(x0) 525.729 572.4860 671.72514 576.0980 653.0755 1073.507   100
+##  any_na_R(x1) 222.001 256.4025 379.66967 267.2365 347.6355 2471.652   100
+##  any_na_C(x1)   1.140   1.9010   4.39074   3.0420   6.2720   15.206   100
 ##  cld
 ##    c
 ##    c
@@ -497,14 +497,14 @@ Im Gegensatz zur R Implementierung ist der rekursive Funktionsaufruf hier wenige
 ```
 ## Unit: microseconds
 ##             expr       min        lq       mean    median        uq
-##  fibonacci_R(20) 42196.356 45174.160 47415.8321 46942.178 48166.409
-##  fibonacci_C(20)   537.895   592.824   643.9334   606.509   640.151
+##  fibonacci_R(20) 34942.200 38658.231 44076.2481 42899.990 48334.429
+##  fibonacci_C(20)   451.983   501.401   606.0679   512.995   728.723
 ##        max neval cld
-##  98869.093   100   b
-##   1389.781   100  a
+##  85034.384   100   b
+##   1526.251   100  a
 ```
 
-Die R Implementierung ist um den Faktor 77.3973305 langsamer. Der Wechsel zu C++ hat also einen deutlichen Laufzeitvorteil gebracht. Allerdings sollte man bei Algorithmen, die exponentiell wachsen, lieber auch nach alternativen Implementierungen suchen, wie z.B. 
+Die R Implementierung ist um den Faktor 83.6265266 langsamer. Der Wechsel zu C++ hat also einen deutlichen Laufzeitvorteil gebracht. Allerdings sollte man bei Algorithmen, die exponentiell wachsen, lieber auch nach alternativen Implementierungen suchen, wie z.B. 
 
 
 ```r
@@ -541,9 +541,9 @@ Die R Implementierung ist um den Faktor 77.3973305 langsamer. Der Wechsel zu C++
 
 ```
 ## Unit: microseconds
-##                  expr     min      lq      mean  median       uq     max
-##  fibonacci_R_iter(20)  10.644  12.164  24.29851  18.247  27.1800  81.730
-##       fibonacci_C(20) 539.034 591.493 642.25693 598.716 646.0435 999.001
+##                  expr     min       lq      mean  median       uq      max
+##  fibonacci_R_iter(20)  11.784  21.2880  30.71524  22.428  28.7005   92.373
+##       fibonacci_C(20) 498.740 522.1185 695.32403 766.166 780.9915 1320.597
 ##  neval cld
 ##    100  a 
 ##    100   b
