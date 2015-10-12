@@ -194,7 +194,7 @@ Verwendet man Funktionen nicht korrekt, so erhält man Fehlermeldungen bzw. Warn
 
 
 ```r
-squareroot( 2 )
+squareroot(2)
 ```
 
 ```
@@ -202,7 +202,7 @@ squareroot( 2 )
 ```
 
 ```r
-sqrt( -2 )
+sqrt(-2)
 ```
 
 ```
@@ -279,8 +279,7 @@ Installierte Pakete liegen in einer Bibliothek. Man kann mit mehreren Bibliothek
 zeigt die vorhandenen Bibliotheken. Standardmäßig werden neue Pakete in die erste Bibliothek von `.libPaths()` installiert. Will man in eine andere Bibliothek installieren, so verwendet man
 
 ```r
-install.packages("Paketname", 
-                 lib = "Pfad zur Bibliothek")
+install.packages("Paketname", lib = "Pfad zur Bibliothek")
 ```
 
 Mit `update.packages()` werden neue Versionen installiert.
