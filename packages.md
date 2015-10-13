@@ -205,19 +205,7 @@ Die aktuelle Version von `ggplot2` ist z.B.
 ## [1] "1.0.1"
 ```
 
-Nun wollen wir unser Paket mit "Inhalt" füllen. Die erste Funktion in unserem Paket sei  
-
-
-```
-sum_R <- function(x){
-  summe <- 0
-  for(i in seq_along(x)){
-    summe <- summe + x[i]
-  }
-  summe
-}
-```
-aus dem Kapitel [Rcpp](Rcpp.html). Diesen Code speichern wir in der Datei sum.R im Verzeichnis `Pfad_zum_Paket/mnRpkt/R` ab. Anschließend laden wir das source Paket `mnRpkt` mit `devtools::load_all()`.
+Nun wollen wir unser Paket mit "Inhalt" füllen. Die erste Funktion in unserem Paket sei `sum_R()` aus dem Kapitel [Rcpp](Rcpp.html#beispiele-r-vs-c). Diesen Code speichern wir in der Datei sum.R im Verzeichnis `Pfad_zum_Paket/mnRpkt/R` ab. Anschließend laden wir das source Paket `mnRpkt` mit `devtools::load_all()`.
 
 
 
@@ -237,14 +225,6 @@ aus dem Kapitel [Rcpp](Rcpp.html). Diesen Code speichern wir in der Datei sum.R 
 
 ```
 ## Loading mnRpkt
-```
-
-```r
-> sum_R(1:10)
-```
-
-```
-## [1] 55
 ```
 
 
@@ -348,7 +328,7 @@ Es ist nicht nur für das Erstellen von Paketen hilfreich das Konzept eines `NAM
 ```
 ## function (x) 
 ## dim(x)[1L]
-## <bytecode: 0x0000000007872400>
+## <bytecode: 0x00000000078724a0>
 ## <environment: namespace:base>
 ```
 Diese Funktion ist definiert in Abhängigkeit von `dim()` aus dem `base` Paket. Auch wenn wir die Funktion
@@ -429,11 +409,7 @@ Daten, die das Paket enthalten sollte, legt man im Verzeichnis `/data` ab. Als F
 > devtools::use_data(x, mtcars)
 ```
 
-Dieser Befehl speichert die Objekte `x` und `mtcars` in den Dateien `data/x.rda` und `data/mtcars.rda` ab. Der Dateiname stimmt also mit dem Objektnamen überein.
-
-## Pakete: Daten
-
-Datensätze sollten auf jeden Fall dokumentiert werden. Dazu fügt man einfach in eine der `.R` Dateien im Verzeichnis `/R` einen weiteren `roxygen2` Absatz ein. Für das Dokumentieren von Datensätzen stehen zwei weitere Tags bereit. Über `@format` beschreibt man das genaue Format der Daten, z.B. die einzelnen Spalten eines Data Frames, und mit `@source` gibt man (falls vorhanden) die Datenquelle an. 
+Dieser Befehl speichert die Objekte `x` und `mtcars` in den Dateien `data/x.rda` und `data/mtcars.rda` ab. Der Dateiname stimmt also mit dem Objektnamen überein. Datensätze sollten auf jeden Fall dokumentiert werden. Dazu fügt man einfach in eine der `.R` Dateien im Verzeichnis `/R` einen weiteren `roxygen2` Absatz ein. Für das Dokumentieren von Datensätzen stehen zwei weitere Tags bereit. Über `@format` beschreibt man das genaue Format der Daten, z.B. die einzelnen Spalten eines Data Frames, und mit `@source` gibt man (falls vorhanden) die Datenquelle an. 
 
 Die Beschreibung des Datensatzes `x` könnte also z.B. so aussehen
 
