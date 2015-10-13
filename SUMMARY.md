@@ -10,6 +10,7 @@
 * [Environments und Scoping](Scoping.md)
 * [Objektorientiertes Programmieren](OOP.md)
 * [Rcpp](Rcpp.md)
+* [Pakete](packages.md)
 * [Anhang](anhang/anhang.md)
  * [Daten IO](anhang/DatenIO.md)
  * [Standard-Grafiksystem](anhang/Standard-Grafiksystem.md)
