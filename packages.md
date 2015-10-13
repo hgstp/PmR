@@ -328,7 +328,7 @@ Es ist nicht nur für das Erstellen von Paketen hilfreich das Konzept eines `NAM
 ```
 ## function (x) 
 ## dim(x)[1L]
-## <bytecode: 0x00000000078724a0>
+## <bytecode: 0x0000000007872330>
 ## <environment: namespace:base>
 ```
 Diese Funktion ist definiert in Abhängigkeit von `dim()` aus dem `base` Paket. Auch wenn wir die Funktion
@@ -423,7 +423,7 @@ Die Beschreibung des Datensatzes `x` könnte also z.B. so aussehen
 "x"
 ```
 
-## Pakete: C++
+## C++
 
 Will man in seinem Paket R Funktionen verwenden, die mithilfe von `Rcpp` aus kompiliertem C++ Code entstanden sind, so sollte man zur Vorbereitung
 
