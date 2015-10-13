@@ -186,7 +186,7 @@ in der DESCRIPTION Datei R Code verwendet werden um die nötigen Informationen
 
 Mit der Funktion `person()` können diese Informationen nun angegeben werden
 ```{}
-Authors@R: person(given = "Stephan", family = "Haug", email = "haug@tum.de", 
+Authors@R: person(given = "Stephan", family = "Haug", email = "meinname@tum.de", 
                   role = c("cre", "aut"))
 ```
 
@@ -208,7 +208,7 @@ Die aktuelle Version von `ggplot2` ist z.B.
 Nun wollen wir unser Paket mit "Inhalt" füllen. Die erste Funktion in unserem Paket sei  
 
 
-```{}
+```
 sum_R <- function(x){
   summe <- 0
   for(i in seq_along(x)){
