@@ -328,7 +328,7 @@ Es ist nicht nur für das Erstellen von Paketen hilfreich das Konzept eines `NAM
 ```
 ## function (x) 
 ## dim(x)[1L]
-## <bytecode: 0x0000000007872330>
+## <bytecode: 0x0000000007872400>
 ## <environment: namespace:base>
 ```
 Diese Funktion ist definiert in Abhängigkeit von `dim()` aus dem `base` Paket. Auch wenn wir die Funktion
@@ -551,6 +551,10 @@ Ebenso können wir den Datensatz `x` laden und uns die Beschreibung des Datensat
 > help(x)
 ```
 ![helpx](help_x.PNG)
+
+
+Der Befehl `devtools::build("mnRpkt")` hat auch eine `tar.gz` Datei erzeugt (liegt im Ordner überhalb des "Paketordners"), die nun mit anderen R Nutzern geteilt werden kann. 
+
 
 ## Literatur zum Erstellen von Paketen
 
