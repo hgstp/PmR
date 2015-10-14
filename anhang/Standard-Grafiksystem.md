@@ -208,3 +208,5 @@ Weitere Informationen über die grafischen Möglichkeiten in R findet man z.B. a
 - http://vis.supstat.com/
 - http://www.statmethods.net/advgraphs/trellis.html
 - http://rgm3.lab.nig.ac.jp/RGM
+
+oder in einem der zahlreichen [Bücher](https://www.r-project.org/doc/bib/R-books.html) zu R.
