@@ -459,6 +459,10 @@ Falls bereits zu einem früheren Zeitpunkte eine Rückgabe erfolgen soll (z.B. S
 +   }
 +   return(output)
 + }
+```
+
+
+```r
 > g()
 ```
 
@@ -467,9 +471,9 @@ Falls bereits zu einem früheren Zeitpunkte eine Rückgabe erfolgen soll (z.B. S
 ## [1] "2x2 Zufallsmatrix"
 ## 
 ## [[2]]
-##            [,1]       [,2]
-## [1,] -0.7352921 -1.2684896
-## [2,] -0.1081083 -0.4129207
+##          [,1]       [,2]
+## [1,] 3.298931 -1.2292385
+## [2,] 1.088338 -0.7044022
 ```
 
 ```r
