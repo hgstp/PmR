@@ -54,7 +54,7 @@ Mit `if ... else` können sehr komplexe Ausdrücke gewählt werden. Die `bedingu
 ```
 
 ```
-## [1]  0  0  9  0  0  0 16
+## [1]  0  0  4  0  0  1 16
 ```
 
 Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
@@ -68,7 +68,7 @@ Man beachte, dass beide Vektoren ausgewertet werden, wie man hier sieht
 ```
 
 ```
-## [1]  4.000000 25.000000  1.732051 16.000000  9.000000  0.000000  2.000000
+## [1]  1.000000  1.000000  1.414214  4.000000 25.000000  1.000000  2.000000
 ```
 
 ## Schleifen
@@ -240,7 +240,7 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 ```
 ##    user  system elapsed 
-##    0.34    0.00    0.34
+##    0.33    0.00    0.33
 ```
 
 ```r
@@ -250,7 +250,7 @@ Benutzt man Schleifen, sollt man auf folgende Punkte achten:
 
 ```
 ##    user  system elapsed 
-##    0.02    0.00    0.02
+##    0.01    0.00    0.01
 ```
 
 
@@ -334,7 +334,7 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 
 ```
 ##    user  system elapsed 
-##    0.75    0.04    0.79
+##    0.76    0.00    0.77
 ```
 
 ```r
@@ -343,20 +343,12 @@ Die Funktionen `rowSums(), colSums(), rowMeans()` und `colMeans()` sind Abkürzu
 
 ```
 ##    user  system elapsed 
-##       0       0       0
+##    0.02    0.00    0.01
 ```
 
 
 Arbeitet man mit Listen, wie z.B.
 
-
-```r
-> str(lapply)
-```
-
-```
-## function (X, FUN, ...)
-```
 
 ```r
 > head(iris)
@@ -379,6 +371,14 @@ Arbeitet man mit Listen, wie z.B.
 
 so gibt es spezielle Funktionen aus der "apply Familie", die speziell (aber nicht nur) zur Anwendung auf Listen vorgesehen sind, wie z.B. `lapply()` oder `sapply()`.
 
+
+```r
+> str(lapply)
+```
+
+```
+## function (X, FUN, ...)
+```
 
 ```r
 > lapply(iris_list, FUN = mean)

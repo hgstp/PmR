@@ -114,13 +114,6 @@ Es gibt eine Ausnahme von der obigen Regel, dass Funktionen aus drei Teilen best
 
 ## Jede Operation ist ein Funktionsaufruf
 
->    “To understand computations in R, two slogans are helpful:
-
->       Everything that exists is an object.
->       Everything that happens is a function call."
-
->    — John Chambers
-
 
 Alle Operationen bestehen aus Funktionsaufrufen. Also auch `+, -, /,:, for, if, while` oder `[]`und `$`. Dies sieht man an diesem Beispiel
 
@@ -452,4 +445,44 @@ Wir haben in den Beispielen bereits gesehen wie die Rückgabe funktioniert. Der 
 ## [1] 10
 ```
 Falls bereits zu einem früheren Zeitpunkte eine Rückgabe erfolgen soll (z.B. STOP Kriterium erfüllt) und diese speziell gekennzeichnet werden soll, kann die Funktion `return()` verwendet werden. Funktionen können nur ein Objekt zurückgeben. Soll die Ausgabe einer Funktion aus mehreren Objekten bestehen, so schreibt man diese einfach in eine Liste und gibt die Liste zurück.
+
+
+```r
+> g <- function(zufall = TRUE){
++   if (zufall){
++     matrix <- matrix(rnorm(4), nrow = 2)
++     output <- list("2x2 Zufallsmatrix", matrix)
++   }
++   else {
++     matrix <- matrix(1:4, nrow = 2)
++     output <- list("2x2 Matrix aus den Zahlen 1 bis 4", matrix)
++   }
++   return(output)
++ }
+> g()
+```
+
+```
+## [[1]]
+## [1] "2x2 Zufallsmatrix"
+## 
+## [[2]]
+##            [,1]       [,2]
+## [1,] -0.7352921 -1.2684896
+## [2,] -0.1081083 -0.4129207
+```
+
+```r
+> g(zufall = FALSE)
+```
+
+```
+## [[1]]
+## [1] "2x2 Matrix aus den Zahlen 1 bis 4"
+## 
+## [[2]]
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+```
 
