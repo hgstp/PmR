@@ -173,7 +173,7 @@ und auch diesen Beispielen
 ```
 Die Verwendung von `' `  erlaubt hierbei den Zugriff auf reservierte Ausdrücke.
 
-Eine sinnvolle Anwendung dieser Zugriffsmethode liegt in der Kombination mit den apply Funktionen (`apply(), lapply(), sapply, mapply(), tapply()`, siehe auch [Kapitel 5](Konstrukte_VP.html)). Diese wenden eine zu übergebende Funktion auf weitere Inputgrößen wie Listen oder Data Frames an.
+Eine sinnvolle Anwendung dieser Zugriffsmethode liegt in der Kombination mit den apply Funktionen (`apply(), lapply(), sapply, mapply(), tapply()`, siehe auch [Kapitel Konstrukte und vektorwertiges Programmieren](Konstrukte_VP.html)). Diese wenden eine zu übergebende Funktion auf weitere Inputgrößen wie Listen oder Data Frames an.
 
 
 ```r
@@ -352,7 +352,7 @@ Intuitiv würde man denken, dass ein Aufruf der Funktion `f()` ohne Angabe von `
 ```
 ## [1] 1 2
 ```
-Vielmehr wird sogar ein Wert für `y` ausgegeben. Die Lazy Evaluation erlaubt es also Funktionen aufzurufen, deren Argumente zum Zeitpunkt des Aufrufs (noch) nicht vorliegen. In diesem Fall wird `y` erst in der zweiten Zeile des `body` von `f()` verwendet. Zu diesem Zeitpunkt ist dann aber auch der Default-Wert `z` innerhalb des Funktions Environments (siehe [Kapitel 7](Scoping.html)) definiert, sodass `y` ein Wert zugeordnet werden kann.
+Vielmehr wird sogar ein Wert für `y` ausgegeben. Die Lazy Evaluation erlaubt es also Funktionen aufzurufen, deren Argumente zum Zeitpunkt des Aufrufs (noch) nicht vorliegen. In diesem Fall wird `y` erst in der zweiten Zeile des `body` von `f()` verwendet. Zu diesem Zeitpunkt ist dann aber auch der Default-Wert `z` innerhalb des Funktions Environments (siehe [Kapitel Environment und Scoping](Scoping.html)) definiert, sodass `y` ein Wert zugeordnet werden kann.
 
 
 *Bemerkung:* Seit R 3.2 "erzwingen" die `apply` Funktionen die Auswertung der Argumente der Funktionen, die sie anwenden sollen.
@@ -471,9 +471,9 @@ Falls bereits zu einem früheren Zeitpunkte eine Rückgabe erfolgen soll (z.B. S
 ## [1] "2x2 Zufallsmatrix"
 ## 
 ## [[2]]
-##          [,1]       [,2]
-## [1,] 3.298931 -1.2292385
-## [2,] 1.088338 -0.7044022
+##            [,1]       [,2]
+## [1,] 1.95878215 0.29300087
+## [2,] 0.06761192 0.05327402
 ```
 
 ```r
