@@ -25,7 +25,7 @@ Warum wählt R hier nicht die Standardfunktion `sqrt()` aus dem `base` Paket, so
 
 ## Zuordnungen
 
-Wenn R einem Symbol einen Wert zuordnet, dann durchsucht R eine Reihe von `environments` (bereits in [Kapitel 6](Funktionen.html) gesehen) nach dem passenden Wert. Gesucht wird in folgender Reihenfolge
+Wenn R einem Symbol einen Wert zuordnet, dann durchsucht R eine Reihe von `environments` (bereits im [Kapitel Funktionen](Funktionen.html) gesehen) nach dem passenden Wert. Gesucht wird in folgender Reihenfolge
 
 1. Das `Global Environment` wird durchsucht.
 2. Die `namespaces` (dazu später mehr) der Pakete auf der `search` Liste werden durchsucht.
@@ -55,7 +55,7 @@ Das `global environment` (der Workspace) wird dabei immer zuerst und `base` zule
 ##  [7] "package:datasets"  "package:methods"   "Autoloads"        
 ## [10] "package:base"
 ```
-Das zuletzt geladene Paket (`ggplot2`) kommt also an die höchstmögliche (`.GlobalEnv` ist ja immer an erster Stelle) Stelle in der `search` Liste.
+Das zuletzt geladene Paket (`ggplot2`) kommt also an die höchstmögliche Stelle (`.GlobalEnv` ist ja immer an erster Stelle) in der `search` Liste.
 
 Man beachte, dass R die Namen von Daten- und Funktionsobjekten unterscheiden kann.
 
@@ -84,7 +84,37 @@ Ein Environment verbindet eine Menge von Namen mit einer entsprechenden Menge vo
 * die Objekte eines Environments sind nicht geordnet
 * jedes Environment besitzt ein `parent` Environment, außer `emptyenv()`
 
-Die Einträge von `search()` sind die Eltern des `Global Environment`. Mit `new.env()` kann auch ein neues Environment erzeugt werden.
+Der erste Eintrag von `search()` ist das Eltern Environment von`Global Environment`. Es gibt Für vier spezielle Environments existieren eigene Funktionen um diese anzuzeigen:
+
+* Mit `globalenv()` erhält man den Workspace. Der erste Eintrag von `search()` (das zuletzt geladene Paket) ist das Eltern Environment von `globalenv()`.
+* Das Environment des `base` Pakets wird über `baseenv()` aufgerufen. Dieses besitzt z.B.
+
+
+```r
+> length(ls(baseenv()))
+```
+
+```
+## [1] 1206
+```
+Objekte. Dieses Environment befindet sich ja immer am Ende von `search()` und hat somit stets das leere Environment als Eltern Environment.
+
+* `emptyenv()` ruft das leere Environment auf.
+* Mit `environment()` erhält man das aktuelle Environment.
+
+
+```r
+> environment()
+```
+
+```
+## <environment: R_GlobalEnv>
+```
+
+
+
+
+Über `new.env()` kann auch ein neues Environment erzeugt werden.
 
 
 ```r
@@ -106,9 +136,34 @@ Die Einträge von `search()` sind die Eltern des `Global Environment`. Mit `new.
 ## <environment: R_GlobalEnv>
 ```
 
+Eine Übersicht der jeweils aktuellen Environment Struktur erhält man mit `pryr::parenvs()`. Über das Argument `e` kann das Environment ausgewählt werden, welches der Startpunkt der angzeigten Struktur sein soll. Standarmäßig wäre dies das `Global Environment`. Wir wählen
+das gerade definierte neue Enviornment `neues_env`.
+
+
+```r
+> library(pryr)
+> parenvs(e = neues_env, all = TRUE)
+```
+
+```
+##    label                             name               
+## 1  <environment: 0x0000000006156990> ""                 
+## 2  <environment: R_GlobalEnv>        ""                 
+## 3  <environment: package:pryr>       "package:pryr"     
+## 4  <environment: package:ggplot2>    "package:ggplot2"  
+## 5  <environment: package:stats>      "package:stats"    
+## 6  <environment: package:graphics>   "package:graphics" 
+## 7  <environment: package:grDevices>  "package:grDevices"
+## 8  <environment: package:utils>      "package:utils"    
+## 9  <environment: package:datasets>   "package:datasets" 
+## 10 <environment: package:methods>    "package:methods"  
+## 11 <environment: 0x00000000071e96f8> "Autoloads"        
+## 12 <environment: base>               ""                 
+## 13 <environment: R_EmptyEnv>         ""
+```
+
 
 *Bemerkung:* Die meisten Environments erzeugt man durch die Verwendung von Funktionen. 
-
 
 
 ## Scoping Rules
@@ -139,19 +194,60 @@ Oftmals werden Funktionen im Globalen Environment definiert. Die Werte freier Va
 +   potenz <- function(x) x^n
 + }
 ```
-`bilde_potenz()` liefert somit eine Funktion als Ausgabe.
+`bilde_potenz()` liefert somit eine Funktion als Ausgabe. Zur Ausführung der Funktion `bilde_potenz` wurde ein eigenes Environment erzeugt. Um dieses anzuzeigen erweitern wir kurz die Funktion
+
+
+```r
+> bilde_potenz <- function(n){
++   print(environment())
++   potenz <- function(x) x^n
++ }
+```
+und rufen diese dann für `n=2` auf
 
 
 ```r
 > zweite_potenz <- bilde_potenz(2)
-> dritte_potenz <- bilde_potenz(3)
-> dritte_potenz
 ```
 
 ```
-## function(x) x^n
-## <environment: 0x000000000852d9f8>
+## <environment: 0x0000000009210780>
 ```
+Dieses Environment ist nun das Ursprungs-Environment von `zweite_potenz()`, da diese Funktion in diesem Environment definiert wurde
+
+
+```r
+> environment(zweite_potenz)
+```
+
+```
+## <environment: 0x0000000009210780>
+```
+
+`bilde_potenz()` hingegen hat das `Global Environment` als Ursprungs-Environment
+
+
+```r
+> environment(bilde_potenz)
+```
+
+```
+## <environment: R_GlobalEnv>
+```
+
+
+Im Ursprungs-Environment von `zweite_potenz` exisiteren zwei Objekte. Innerhalb der Funktion wurde das Objekt `potenz` definiert. Neben diesem enthält das Environment aber natürlich auch das Funktionsargument `n`.
+
+```r
+> ls.str(environment(zweite_potenz))
+```
+
+```
+## n :  num 2
+## potenz : function (x)
+```
+
+-------------------------
 
 Sucht man nach einer Variable und/oder möchte man ihren Wert ausgeben, so kann man mit den Funktionen `exists()` und `get()` arbeiten. Beide verwenden static scoping.
 
@@ -188,9 +284,18 @@ ist dann auch das Ergebnis des folgenden Befehls klar.
 ## [1] FALSE
 ```
 
+--------------------------
 
-Schauen wir uns nun den `closure` (Funktion + zugehöriges Environment) von `zweite_potenz()` und `dritte_potenz()` genauer an.
+Schauen wir uns nun den `closure` (Funktion + zugehöriges Environment) noch etwas genauer an. Dazu definieren wir uns noch eine Funktion `dritte_potenz()`.
 
+
+```r
+> dritte_potenz <- bilde_potenz(3)
+```
+
+```
+## <environment: 0x0000000006168b50>
+```
 
 ```r
 > ls(environment(zweite_potenz))
@@ -271,17 +376,19 @@ Der letzte Befehl der Funktion `negLogLik()` ist eine Funktionsdefinition. Somit
 ##     l_x <- -( -length(data)/2 * log(2 * pi * sigma_2 ) - sum((data-mu)^2) / (2*sigma_2))
 ##     l_x
 ##   }
-## <environment: 0x000000000b5701f0>
+## <environment: 0x0000000005e9d238>
 ```
 
 Schaut man sich nun das Environment der Funktion `l_x()` an
 
 ```r
-> ls(environment(l_x))
+> ls.str(environment(l_x))
 ```
 
 ```
-## [1] "data"  "fix"   "param"
+## data :  num [1:1000] -1.41 1.55 3.17 -3.69 1.86 ...
+## fix :  logi [1:2] FALSE FALSE
+## param :  logi [1:2] FALSE FALSE
 ```
 so findet man dort die Objekte data, fix, param. Alle drei Objekte sind innerhalb der Funktion `negLogLik()` bekannt und damit innerhalb des Environments in dem `l_x()` definiert wurde.
 
@@ -320,7 +427,7 @@ Durch Übergabe aller weiteren Größen (data, fix, param) im Environment
 ```
 
 ```
-## <environment: 0x000000000ab4a368>
+## <environment: 0x00000000091a6500>
 ```
 konnte also die Funktion `l_x()` im `.GlobalEnv` nur als Funktion der unbekannten Parameter  definiert werden. 
 
