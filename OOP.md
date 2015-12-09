@@ -9,7 +9,7 @@ In R existieren mehrere Systeme zum OOP. Am bekanntesten sind die **S3** und **S
 
 ## S3
 
-**S3** ist informell und erlaubt somit das schnelle Erzeugen von **S3** Objekten. Die meisten Objekte sind **S3** Objekte. In der Basisversion gibt es aber keine "einfache" Möglichkeit zur Überprüfung ob es sich um ein **S3** Objekt oder z.B. ein Basisobjekt handelt. Hier bietet sich `pryr::otype()` an
+**S3** ist informell und erlaubt somit das schnelle Erzeugen von **S3** Objekten. Die meisten Objekte sind **S3** Objekte. In der Basisversion gibt es aber keine "einfache" Möglichkeit zur Überprüfung ob es sich um ein **S3** Objekt oder z.B. ein Basisobjekt handelt. Daher bietet es sich an mit `pryr::otype()` zu arbeiten.
 
 
 
@@ -51,7 +51,7 @@ In **S3** werden Methoden den jeweiligen Funktionen zugeordnet. Diese werden dan
 ```
 ## function (x, ...) 
 ## UseMethod("mean")
-## <bytecode: 0x000000000692ba20>
+## <bytecode: 0x0000000008500da0>
 ## <environment: namespace:base>
 ```
 
@@ -134,7 +134,7 @@ Die Methoden von `mean()` sind alle sichtbar. `head()` hat hingegen verborgene M
 ##     else min(n, length(x))
 ##     x[seq_len(n)]
 ## }
-## <bytecode: 0x0000000007a8a618>
+## <bytecode: 0x00000000073d5510>
 ## <environment: namespace:utils>
 ```
 
@@ -185,7 +185,7 @@ Mit `class()` kann die Klasse eines Objekts abgefragt und auch gesetzt werden. `
 ## [1] TRUE
 ```
 
-Für viele **S3** Klassen existiert eine Funktion zur Konstruktion von Objekten dieser Klasse, wie z.B. `factor(), data.frame(), ...` Daher wollen wir nun auch eine solche Funktion für die Klasse `m_klasse` schreiben. Objekte aus dieser Klasse sollen, wie zuvor gesehen, sind Listen mit numerischen Einträgen. Demzufolge könnte eine solche Funktion die nachfolgende Form haben.
+Für viele **S3** Klassen existiert eine Funktion zur Konstruktion von Objekten dieser Klasse, wie z.B. `factor(), data.frame(), ...` Daher wollen wir nun auch eine solche Funktion für die Klasse `m_klasse` schreiben. Objekte aus dieser Klasse - wie zuvor gesehen - sind Listen mit numerischen Einträgen. Demzufolge könnte eine solche Funktion die nachfolgende Form haben.
 
 
 ```r
@@ -198,14 +198,16 @@ Für viele **S3** Klassen existiert eine Funktion zur Konstruktion von Objekten 
 
 
 
-
 ```r
-> m_obj <- m_klasse(1:3,"a")
+> m_obj <- m_klasse(1:3, "a")
 ```
 
 ```
 ## Error in m_klasse(1:3, "a"): x und y muessen numerisch sein
 ```
+
+Da der Input nicht die passende Struktur hatte, liefert `m_klasse()` - wie definiert - eine Fehlermeldung.
+
 
 ```r
 > m_obj <- m_klasse(x = 1:3, y = c(4,5))
@@ -216,6 +218,7 @@ Für viele **S3** Klassen existiert eine Funktion zur Konstruktion von Objekten 
 ## [1] "m_klasse"
 ```
 
+
 ## Neue Methoden und generische Funktionen
 
 Zur Definition einer neuen generischen Funktion benutzt man `UseMethod()`.
@@ -225,7 +228,7 @@ Zur Definition einer neuen generischen Funktion benutzt man `UseMethod()`.
 > m_generic <- function(x) UseMethod("m_generic")
 ```
 
-Eine generische Funktion ist nutzlos ohne (mindestens) eine Methode. Daher definieren wir nun für die Klasse `m_klasse` eine Methode zur generischen Funktion `m_generice()`. 
+Eine generische Funktion ist nutzlos ohne (mindestens) eine Methode. Daher definieren wir nun für die Klasse `m_klasse` eine Methode zur generischen Funktion `m_generic()`. 
 
 
 ```r
@@ -254,6 +257,12 @@ Ebenso kann man eine neue Methode für eine bereits existierende generische Funk
 
 ```r
 > mean.m_klasse <- function(x) mean(x[[1]])
+```
+
+Die Methode berechnet also den empirischen Mittelwert des ersten Listenelements.
+
+
+```r
 > mean(m_obj)
 ```
 
